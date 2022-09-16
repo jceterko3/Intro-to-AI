@@ -28,6 +28,11 @@ public class Test {
         
         try{
             Scanner scan = new Scanner(new File(fileName));
+		
+	    // error message if txt file is empty | might need to consider more cases 
+            if(scan.hasNextInt() == false){
+                System.out.println("GRID DOES NOT EXIST");
+            }
 
             // ASSUMING TXT FILES ARE CORRECT 
             // might need to change while loop and obtaining cells section in case 
@@ -40,10 +45,6 @@ public class Test {
                 gy = scan.nextInt();
                 col = scan.nextInt();
                 row = scan.nextInt();
-
-
-
-
                 
                 // obtaining the cells, not sure if this has to be optimized in some way 
                 // he mentioned in the assignment we can only do one initialization for vertices? 
@@ -93,10 +94,6 @@ public class Test {
         grid.print_hval_A();
         //A* METHODS
          
-         
-   
-
-
     }
     
 }
