@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.FileInputStream;
 import java.lang.Math;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Frame extends JFrame { // a class to create the GUI
 
@@ -20,7 +21,6 @@ public class Frame extends JFrame { // a class to create the GUI
     public ArrayList<Node> path; // shortest path found from start to goal
     public minHeap fringe;
 
-
     public Frame(int sx, int sy, int gx, int gy, int col, int row, int[][] bkd, int count) { // creates a pop up window
 
         startX = sx; // initializing private variables, need to offset by *50 to fit scale of grid
@@ -31,7 +31,6 @@ public class Frame extends JFrame { // a class to create the GUI
         rows = row;
         blocked = bkd;
         bkdCount = count;
-        path = new ArrayList<Node>();
         // path = pth;
 
         setSize(100 * cols, 100 * rows);
@@ -53,42 +52,51 @@ public class Frame extends JFrame { // a class to create the GUI
     }
 
     public ArrayList<Node> Astar() {
+        path = new ArrayList<Node>();
+
+        // System.out.println("TRULY INTIALpath length: " + path.size());
+
         Node s;
         Node start = graph[startY - 1][startX - 1];
         Node goal = graph[goalY - 1][goalX - 1];
         start.parent = start;
-        fringe = new minHeap(start, (rows+1) * (cols+1));
+        fringe = new minHeap(start, (rows + 1) * (cols + 1));
         ArrayList<Node> closed = new ArrayList<Node>();
-        System.out.println("FRINGE 1: "+ (fringe.A[1].col+1)+", "+(fringe.A[1].row+1));
+        // System.out.println("FRINGE 1: " + (fringe.A[1].col + 1) + ", " +
+        // (fringe.A[1].row + 1));
 
         while (!fringe.isEmpty()) {
-            System.out.println("reached while loop");
-            fringe.print();
+            // System.out.println("reached while loop");
+            // fringe.print();
             s = fringe.pop();
-            System.out.println("ROWWW:"+goal.row);
+            // System.out.println("ROWWW:" + goal.row);
             if (s.row == goal.row && s.col == goal.col) {
-                System.out.println("path found");
+                // System.out.println("path found");
                 path.add(s);
+                // System.out.println("INITIAL path length: " + path.size());
+
                 int help = 0;
-                while(!(s.parent.col==s.col && s.parent.row==s.row)){
-                    System.out.println("addednode" + help +":  "+(s.col+1)+", "+(s.row+1));
+                while (!(s.parent.col == s.col && s.parent.row == s.row)) {
+                    // System.out.println("addednode" + help + ": " + (s.col + 1) + ", " + (s.row +
+                    // 1));
                     path.add(s.parent);
-                    System.out.println(help + "path length:  "+ path.size());
+                    // System.out.println(help + "path length: " + path.size());
 
                     s = s.parent;
                     help++;
                 }
-                System.out.println("path length:  "+ path.size());
+                // System.out.println("path length: " + path.size());
+                // System.out.println("RETURN PATH");
+                Collections.reverse(path);
+
                 return path;
-
-
 
                 // return path
             }
             closed.add(s);
             ArrayList<Node> succs = succ(s);
-            System.out.println(succs.toString());
-            System.out.println(succs.get(0).toString());
+            // System.out.println(succs.toString());
+            // System.out.println(succs.get(0).toString());
             for (int i = 0; i < succs.size(); i++) {
                 Node si = succs.get(i);
                 if (si == null) {
@@ -114,14 +122,14 @@ public class Frame extends JFrame { // a class to create the GUI
 
     }
 
-    private void updateVertex(Node s, Node si){
-        double c = Math.sqrt(Math.abs(s.row-si.row)+Math.abs(s.col-si.col)); //todo distance
-        if((s.g + c)<si.g){
+    private void updateVertex(Node s, Node si) {
+        double c = Math.sqrt(Math.abs(s.row - si.row) + Math.abs(s.col - si.col));
+        if ((s.g + c) < si.g) {
             si.g = s.g + c;
             si.parent = s;
             fringe.remove(si);
-            si.f = si.g+si.h;
-            fringe.insert(si);            
+            si.f = si.g + si.h;
+            fringe.insert(si);
         }
     }
 
@@ -133,30 +141,57 @@ public class Frame extends JFrame { // a class to create the GUI
 
         for (int row = r - 1; row < (r + 2); row++) {
             for (int col = c - 1; col < (c + 2); col++) {
-                boolean isBlocked = false;
-                /*for (int i = 0; i < blocked.length; i++) {
-                    if (blocked[i][0] == (col + 1) && blocked[i][1] == (row + 1)) {
-                        isBlocked = true;
+                if (!(row == r && col == c)) {
+                    boolean isBlocked = false;
+                    int vr = Math.min(row, r) + 1;
+                    int vc = Math.min(col, c) + 1;
+                    // if horizontal movement
+                    if (row == r) {
+                        for (int i = 0; i < blocked.length; i++) {
+                            if (blocked[i][0] == vc && blocked[i][1] == vr) {
+                                if (blocked[i][0] == (vc) && blocked[i][1] == (vr - 1)) {
+                                    isBlocked = true;
+                                }
+
+                            }
+                        }
+
+                    } else if (col == c) {
+                        for (int i = 0; i < blocked.length; i++) {
+                            if (blocked[i][0] == vc && blocked[i][1] == vr) {
+                                if (blocked[i][0] == (vc - 1) && blocked[i][1] == (vr)) {
+                                    isBlocked = true;
+                                }
+
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < blocked.length; i++) {
+                            if (blocked[i][0] == vc && blocked[i][1] == vr) {
+                                isBlocked = true;
+                            }
+                        }
                     }
-                }*/
-                //TODO implement blocked
-                if (!isBlocked) {
-                    if (row >= 0 && row <= rows) {
-                        if (col >= 0 && col <= cols) {
-                            if(!(row == r && col == c)){
+
+                    if (!isBlocked) {
+                        if (row >= 0 && row <= rows) {
+                            if (col >= 0 && col <= cols) {
+
                                 succs.add(graph[row][col]);
                                 count++;
-                                //System.out.println("added successor: " +(col+1)+", "+(row+1));
-                                //System.out.println(succs[count].toString());
+                                // System.out.println("added successor: " +(col+1)+", "+(row+1));
+                                // System.out.println(succs[count].toString());
+
                             }
-                           
-                            
                         }
                     }
                 }
             }
+
         }
+
         return succs;
+
     }
 
     public void print_hval_A() {

@@ -48,6 +48,8 @@ public class Test {
                 
                 // obtaining the cells, not sure if this has to be optimized in some way 
                 // he mentioned in the assignment we can only do one initialization for vertices? 
+                System.out.println("BLOCKED CELLS:"); 
+
                 for(int i = 0; i < col*row; i++){
                     //hold all variables
                     int r = scan.nextInt();
@@ -57,12 +59,15 @@ public class Test {
                     if(isBlocked == 1){    //if blocked then add to arraylist
                         bkd.add(new ArrayList<Integer>());
                         bkd.get(count).add(r);   
-                        bkd.get(count).add(c);  
+                        bkd.get(count).add(c); 
                         System.out.println(bkd.get(count).toString());
                         count++;
                     }
+                    
 
                 }
+                System.out.println();
+
 
             }
 
@@ -84,21 +89,20 @@ public class Test {
 
         //test to print array of blocked cells (delete later)
         for(int i=0; i<b.length; i++){
-            System.out.print(b[i][0]+",");
-            System.out.println(""+b[i][1]);
+            //System.out.print(b[i][0]+",");
+            //System.out.println(""+b[i][1]);
         }
 
 
         Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count);
-        grid.Astar();
 
-        grid.print_hval_A();
         //A* METHODS
         ArrayList<Node> path = grid.Astar();
-        for (int i = 0; i < path.size();i++) 
-	      { 		      
+        System.out.println("A* SHORTEST PATH:");
+        for (int i = 0; i < path.size();i++){ 		      
 	        System.out.println("Node: " + (path.get(i).col+1)+", "+(path.get(i).row+1)); 		
-	      }   
+	    }   
+        
 
          
     }
