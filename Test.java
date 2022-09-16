@@ -90,6 +90,8 @@ public class Test {
 
         Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count);
 
+        grid.print_hval_A();
+        //A* METHODS
          
          
    

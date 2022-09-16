@@ -3,10 +3,13 @@ import javax.swing.*;
 import java.util.Scanner;
 import java.io.InputStream;
 import java.io.FileInputStream;
+import java.lang.Math;
 
 
 public class Frame extends JFrame{                          // a class to create the GUI
 
+    public double[][] hval_A;
+    public double[][] gval_A;
     private int startX;                                     // x coord of start vertex
     private int startY;                                     // y coord of start vertex
     private int goalX;                                      // x coord of goal vertex
@@ -19,10 +22,10 @@ public class Frame extends JFrame{                          // a class to create
 
     public Frame(int sx, int sy, int gx, int gy, int col, int row, int[][] bkd, int count){      // creates a pop up window
 
-        startX = sx*50;                                        // initializing private variables, need to offset by *50 to fit scale of grid
-        startY = sy*50; 
-        goalX = gx*50; 
-        goalY = gy*50;
+        startX = sx;                                        // initializing private variables, need to offset by *50 to fit scale of grid
+        startY = sy; 
+        goalX = gx; 
+        goalY = gy;
         cols = col;
         rows = row;
         blocked = bkd;
@@ -33,7 +36,48 @@ public class Frame extends JFrame{                          // a class to create
         setTitle("GRID PATH");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         setVisible(true); 
+        
+        //calculate heuristic values
+        hval_A = new double[rows+1][cols+1];
+        for(int i=0; i<=rows; i++){
+            for(int j=0; j<=cols; j++){
+                double xdiff = Math.abs(j+1-goalX);
+                double ydiff = Math.abs(i+1-goalY);
+                hval_A[i][j]=Math.sqrt(2)*Math.min(xdiff, ydiff)+Math.max(xdiff, ydiff)-Math.min(xdiff, ydiff);
+            }
+        }  
+        
+        gval_A = new double[rows+1][cols+1];
+
+
+
     } 
+
+    public String Astar(){
+
+        return null;
+
+    }
+
+    public void print_hval_A(){
+        for(int i=0; i<=rows; i++){
+            for(int j=0; j<=cols; j++){
+                System.out.print(Math.round(hval_A[i][j]*100.0)/100.0+"   ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void print_gval_A(){
+        for(int i=0; i<=rows; i++){
+            for(int j=0; j<=cols; j++){
+                System.out.print(Math.round(gval_A[i][j]*100.0)/100.0+"   ");
+            }
+            System.out.println();
+        }
+    }
+
+    
 
     // creates grid with components
     public void paint(Graphics g){                          
@@ -58,15 +102,15 @@ public class Frame extends JFrame{                          // a class to create
         // circles start and goal vertex 
         int dia = 25;                                       // diameter of circle
         g.setColor(Color.blue);
-        g.drawOval(startX - (dia/2), startY - (dia/2), dia, dia);
+        g.drawOval(startX*50 - (dia/2), startY*50 - (dia/2), dia, dia);
         g.setColor(Color.green);
-        g.drawOval(goalX - (dia/2), goalY - (dia/2), dia, dia);
+        g.drawOval(goalX*50 - (dia/2), goalY*50 - (dia/2), dia, dia);
 
         // labels start and goal vertex 
         g.setColor(Color.black);
         g.setFont(new Font("TimesRoman",Font.PLAIN,10));
-        g.drawString("Start Vertex", startX - (dia/2), startY - (dia/2));
-        g.drawString("Goal Vertex", goalX - (dia/2), goalY - (dia/2));
+        g.drawString("Start Vertex", startX*50 - (dia/2), startY*50 - (dia/2));
+        g.drawString("Goal Vertex", goalX*50 - (dia/2), goalY*50 - (dia/2));
 
 
         // add the final path 
