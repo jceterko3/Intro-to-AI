@@ -90,9 +90,16 @@ public class Test {
 
 
         Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count);
+        grid.Astar();
 
         grid.print_hval_A();
         //A* METHODS
+        ArrayList<Node> path = grid.Astar();
+        for (int i = 0; i < path.size();i++) 
+	      { 		      
+	        System.out.println("Node: " + (path.get(i).col+1)+", "+(path.get(i).row+1)); 		
+	      }   
+
          
     }
     
