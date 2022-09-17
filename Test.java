@@ -48,8 +48,6 @@ public class Test {
                 
                 // obtaining the cells, not sure if this has to be optimized in some way 
                 // he mentioned in the assignment we can only do one initialization for vertices? 
-                System.out.println("BLOCKED CELLS:"); 
-
                 for(int i = 0; i < col*row; i++){
                     //hold all variables
                     int r = scan.nextInt();
@@ -60,14 +58,11 @@ public class Test {
                         bkd.add(new ArrayList<Integer>());
                         bkd.get(count).add(r);   
                         bkd.get(count).add(c); 
-                        System.out.println(bkd.get(count).toString());
                         count++;
                     }
                     
 
                 }
-                System.out.println();
-
 
             }
 
@@ -77,14 +72,6 @@ public class Test {
 	        System.out.println(fileName + " not found");
 	    }
 
-
-        // maybe here ask about viewing a vertex and displaying info in terminal?
-        /*Scanner question = new Scanner(System.in);
-        System.out.println("Enter a vertex (x,y) to view more info");
-                
-        String answer = question.nextLine();
-        System.out.println("VALUES : ");*/
-
         int[][] b = bkd.stream().map(x -> x.stream().mapToInt(Integer::intValue).toArray()).toArray(int[][]::new); 
 
         //test to print array of blocked cells (delete later)
@@ -93,17 +80,21 @@ public class Test {
             //System.out.println(""+b[i][1]);
         }
 
+        // A* Methods
+        Astar Apath = new Astar();
+        ArrayList<Node> apath = Apath.A(sx,sy,gx,gy,col,row,b,count);
+        Apath.print_hval_A();
 
-        Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count);
-
-        //A* METHODS
-        ArrayList<Node> path = grid.Astar();
-        System.out.println("A* SHORTEST PATH:");
-        for (int i = 0; i < path.size();i++){ 		      
-	        System.out.println("Node: " + (path.get(i).col+1)+", "+(path.get(i).row+1)); 		
-	    }   
+        // draws the grid with path 
+        Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count,apath);
         
 
+        // maybe here ask about viewing a vertex and displaying info in terminal?
+        /*Scanner question = new Scanner(System.in);
+        System.out.println("Enter a vertex (x,y) to view more info");
+                
+        String answer = question.nextLine();
+        System.out.println("VALUES : ");*/
          
     }
     
