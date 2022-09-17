@@ -177,6 +177,20 @@ public class Frame extends JFrame { // a class to create the GUI
                 g.drawRect(x, y, 50, 50);
             }
         }
+        
+                // adding numbers to grid 
+        int num1 = 1;
+        for(int x = 50; x <= 50*(cols+1); x += 50){
+            String number1 = Integer.toString(num1);
+            g.drawString(number1, x, 40);
+            num1++;
+        }
+        int num2 = 1;
+        for(int y = 50; y <= 50*(rows+1); y += 50){
+            String number2 = Integer.toString(num2);
+            g.drawString(number2, 40, y);
+            num2++;
+        }
 
         // color in blocked cells
         g.setColor(Color.gray);
