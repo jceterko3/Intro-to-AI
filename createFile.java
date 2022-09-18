@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Random;
 
 // creates the test case files with random cells 
 public class createFile {
@@ -17,17 +18,46 @@ public class createFile {
     // write to file 
     try{
 
-        FileWriter content = new FileWriter(args[0]);
+      FileWriter content = new FileWriter(args[0]);
 
-        int num = 1;
-        int test = 2;
-        String newLine = System.getProperty("line.separator");
+      // initializing min and max values
+      int maxX = 4;
+      int maxY = 2;
+      int minX = 1;
+      int minY = 1;
+      Random rand = new Random();
 
-        content.write(num + " " + test + newLine);            // figure out how to write the proper stuff
-        content.write("hello");
-        content.close(); 
+      // creating start & goal index 
+      int randNumXS = rand.nextInt((maxX - minX) + 1) + 1;
+      int randNumYS = rand.nextInt((maxY - minY) + 1) + 1;
+      int randNumXG = rand.nextInt((maxX - minX) + 1) + 1;
+      int randNumYG = rand.nextInt((maxY - minY) + 1) + 1;
 
-    } catch (IOException e) {
+      String newLine = System.getProperty("line.separator");
+
+      // writing start, goal, 100x50 to file 
+      content.write(randNumXS + " " + randNumYS + newLine);            
+      content.write(randNumXG + " " + randNumYG + newLine);
+      content.write(maxX + " " + maxY + newLine);
+
+      // writing cells 
+      for(int x = 1; x <= maxX; x++){
+        for(int y = 1; y <= maxY; y++){
+          content.write(x + " " + y + " ");
+
+          boolean blocked = rand.nextInt(10)==0;
+          if(blocked == true){
+            content.write(1 + newLine);
+          }
+          else{
+            content.write(0 + newLine);
+          }
+
+        }
+      }
+      content.close(); 
+    } 
+    catch (IOException e) {
         System.out.println("ERROR");
     }
 
