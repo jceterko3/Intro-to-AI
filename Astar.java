@@ -44,13 +44,18 @@ public class Astar {
         Node start = graph[startY - 1][startX - 1];
         Node goal = graph[goalY - 1][goalX - 1];
         start.parent = start;
-        fringe = new minHeap(start, (rows + 1) * (cols + 1));
+        fringe = new minHeap((rows + 1) * (cols + 1));
+        start.f = start.h;
+        fringe.insert(start);
         ArrayList<Node> closed = new ArrayList<Node>();
 
 
         while (!fringe.isEmpty()) {
-
+            fringe.print();
             s = fringe.pop();
+            
+            
+
 
             if (s.row == goal.row && s.col == goal.col) {
                 path.add(s);
@@ -59,6 +64,7 @@ public class Astar {
                 while (!(s.parent.col == s.col && s.parent.row == s.row)) {
                     path.add(s.parent);
                     s = s.parent;
+                    System.out.println("ADDED NODE:"+(s.col+1)+", "+(s.row+1));
                     help++;
                 }
 
@@ -69,7 +75,9 @@ public class Astar {
             }
 
             closed.add(s);
+            System.out.println("closed: "+(s.col+1)+", "+(s.row+1));
             ArrayList<Node> succs = succ(s);
+
 
             for (int i = 0; i < succs.size(); i++) {
                 Node si = succs.get(i);
@@ -92,6 +100,7 @@ public class Astar {
             }
         }
 
+        System.out.println("path not found");
         return null;
 
     }
@@ -102,7 +111,15 @@ public class Astar {
         if ((s.g + c) < si.g) {
             si.g = s.g + c;
             si.parent = s;
-            fringe.remove(si);
+            boolean isFringe = false;
+            for (int j = 0; j < fringe.A.length; j++) {
+                if (fringe.A[j] == si) {
+                    isFringe = true;
+                }
+            }
+            if(isFringe){
+                fringe.remove(si);
+            }
             si.f = si.g + si.h;
             fringe.insert(si);
         }

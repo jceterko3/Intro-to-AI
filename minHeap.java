@@ -3,11 +3,11 @@ public class minHeap {
     private int size;
     private int max;
 
-    public minHeap(Node n, int max) {
+    public minHeap(int max) {
         this.max = max;
         this.size = 0;
         A = new Node[max + 1];
-        A[1] = n; // first slot is empty
+        A[0] = null;
     }
 
     public boolean isEmpty() {
@@ -18,6 +18,9 @@ public class minHeap {
     }
 
     private int parent(int ptr) {
+        if(ptr==1){
+            return ptr;
+        }
         return ptr / 2;
     }
 
@@ -38,28 +41,58 @@ public class minHeap {
     }
 
     public void insert(Node node) {
+        System.out.println("attempting to insert: "+(node.col+1)+", "+(node.row+1)+", f="+node.f);
         if (size >= max) {
             System.out.println("exceeds max size");// delete later
             return;
         }
-
+        if (size==0){
+            A[1]=node;
+            size++;
+            System.out.println("inserted: "+(A[1].col+1)+", "+(A[1].row+1)+", index=1");
+            return;
+        }
         size++;
         A[size] = node;
         int curr = size;
-
         while (A[curr].f < A[parent(curr)].f) {
             swap(curr, parent(curr));
             curr = parent(curr);
+            System.out.println("test: "+parent(curr));
         }
+        System.out.println("inserted: "+(A[curr].col+1)+", "+(A[curr].row+1)+", index="+curr);
+
+        System.out.print("FRINGE:  ");
+
+        for (int i = 1; i < A.length; i++) {
+            if (A[i] != null) {
+                System.out.print("index:"+i+", "+(A[i].col + 1) + ", " + (A[i].row + 1) + ", f=" + (Math.round(A[i].f) * 100.0 / 100.0)
+                        + "    ");
+
+            }
+
+        }
+        System.out.println();
+
     }
 
     public Node pop() {
 
         Node popped = A[1];
         A[1] = A[size];
+        A[size] = null;
         size = size - 1;
+        System.out.println("size: "+size);
         heapify(1);
+        System.out.println("popped "+(popped.col+1)+", "+(popped.row+1));
+        for (int i = 1; i < A.length; i++) {
+            if (A[i] != null) {
+                System.out.print("index:"+i+", "+(A[i].col + 1) + ", " + (A[i].row + 1) + ", f=" + (Math.round(A[i].f) * 100.0 / 100.0)
+                        + "    ");
 
+            }
+
+        }
         return popped;
     }
 
@@ -67,6 +100,7 @@ public class minHeap {
         int index = find(s);
         if (index >= 0) {
             A[index] = A[size];
+            A[size] = null;
             size = size - 1;
             heapify(index);
         }
@@ -97,29 +131,39 @@ public class minHeap {
     private void heapify(int ptr) {
         if (!isLeaf(ptr)) {
             int swap_ptr = ptr;
-            if (rightChild(ptr) <= size)
+            if (rightChild(ptr) <= size) {
                 if (A[leftChild(ptr)].f < A[rightChild(ptr)].f) {
                     swap_ptr = leftChild(ptr);
                 } else {
                     swap_ptr = rightChild(ptr);
                 }
-            else
-                swap_ptr = leftChild(ptr);
-
-            if (A[ptr].f > A[leftChild(ptr)].f || A[ptr].f > A[rightChild(ptr)].f) {
-                swap(ptr, swap_ptr);
-                heapify(swap_ptr);
+                if (A[ptr].f > A[leftChild(ptr)].f || A[ptr].f > A[rightChild(ptr)].f) {
+                    swap(ptr, swap_ptr);
+                    heapify(swap_ptr);
+                }
+            } else {
+                swap_ptr = leftChild(ptr);   
+                if (A[ptr].f > A[leftChild(ptr)].f) {
+                    swap(ptr, swap_ptr);
+                    heapify(swap_ptr);
+                }             
             }
+            
         }
     }
 
     public void print() {
+        System.out.print("FRINGE:  ");
+
         for (int i = 1; i < A.length; i++) {
-            if(A[i]!=null){
-                System.out.println((A[i].col+1)+", "+(A[i].row+1));
+            if (A[i] != null) {
+                System.out.print("index:"+i+", "+(A[i].col + 1) + ", " + (A[i].row + 1) + ", f=" + (Math.round(A[i].f) * 100.0 / 100.0)
+                        + "    ");
 
             }
-        
+
         }
+        System.out.println();
+
     }
 }
