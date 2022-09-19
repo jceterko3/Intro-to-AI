@@ -19,6 +19,7 @@ public class Test {
         int gy = 0; //goal y
         int col = 0; //#columns
         int row = 0; //#rows
+        int[][] gridCells = new int[0][]; //representing obstacles as 1 in grid
         
         // array that holds all blocked cells 
         int isBlocked; 
@@ -45,7 +46,7 @@ public class Test {
                 gy = scan.nextInt();
                 col = scan.nextInt();
                 row = scan.nextInt();
-                
+                gridCells = new int[row][col];
                 // obtaining the cells, not sure if this has to be optimized in some way 
                 // he mentioned in the assignment we can only do one initialization for vertices? 
                 for(int i = 0; i < col*row; i++){
@@ -59,11 +60,9 @@ public class Test {
                         bkd.get(count).add(r);   
                         bkd.get(count).add(c); 
                         count++;
+                        gridCells[c - 1][r - 1] = 1;
                     }
-                    
-
                 }
-
             }
 
             scan.close();
@@ -87,8 +86,22 @@ public class Test {
 
         // draws the grid with path 
         Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count,apath);
-        
 
+        // TODO: Delete later - code to print grid cells
+        System.out.println("Printing grid: \n");
+        for (int[] ints : gridCells) {
+            for (int j = 0; j < gridCells[0].length; j++) {
+                System.out.print(ints[j] + "* ");
+            }
+            System.out.print('\n');
+        }
+
+        // Theta* Method
+        ThetaStar thetaPath = new ThetaStar();
+        Node s = new Node(1,1,1.1);
+        Node si = new Node(2,4,2.2);
+        thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells);
+        System.out.println("ObstacleInPath: " + thetaPath.ObstacleInPath(s,si));
         // maybe here ask about viewing a vertex and displaying info in terminal?
         /*Scanner question = new Scanner(System.in);
         System.out.println("Enter a vertex (x,y) to view more info");
