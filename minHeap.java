@@ -41,15 +41,12 @@ public class minHeap {
     }
 
     public void insert(Node node) {
-        System.out.println("attempting to insert: "+(node.col+1)+", "+(node.row+1)+", f="+node.f);
         if (size >= max) {
-            System.out.println("exceeds max size");// delete later
             return;
         }
         if (size==0){
             A[1]=node;
             size++;
-            System.out.println("inserted: "+(A[1].col+1)+", "+(A[1].row+1)+", index=1");
             return;
         }
         size++;
@@ -58,15 +55,15 @@ public class minHeap {
         while (A[curr].f < A[parent(curr)].f) {
             swap(curr, parent(curr));
             curr = parent(curr);
-            System.out.println("test: "+parent(curr));
+          //  System.out.println("test: "+parent(curr));
         }
-        System.out.println("inserted: "+(A[curr].col+1)+", "+(A[curr].row+1)+", index="+curr);
+      //  System.out.println("inserted: "+(A[curr].col+1)+", "+(A[curr].row+1)+", index="+curr);
 
         System.out.print("FRINGE:  ");
 
         for (int i = 1; i < A.length; i++) {
             if (A[i] != null) {
-                System.out.print("index:"+i+", "+(A[i].col + 1) + ", " + (A[i].row + 1) + ", f=" + (Math.round(A[i].f) * 100.0 / 100.0)
+                System.out.print((A[i].col + 1) + ", " + (A[i].row + 1) + ", f=" + (Math.round(A[i].f) * 100.0 / 100.0)
                         + "    ");
 
             }
@@ -82,17 +79,10 @@ public class minHeap {
         A[1] = A[size];
         A[size] = null;
         size = size - 1;
-        System.out.println("size: "+size);
+        //System.out.println("size: "+size);
         heapify(1);
-        System.out.println("popped "+(popped.col+1)+", "+(popped.row+1));
-        for (int i = 1; i < A.length; i++) {
-            if (A[i] != null) {
-                System.out.print("index:"+i+", "+(A[i].col + 1) + ", " + (A[i].row + 1) + ", f=" + (Math.round(A[i].f) * 100.0 / 100.0)
-                        + "    ");
+        //System.out.println("popped "+(popped.col+1)+", "+(popped.row+1));
 
-            }
-
-        }
         return popped;
     }
 
