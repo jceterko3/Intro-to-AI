@@ -17,7 +17,7 @@ public class Astar {
     public ArrayList<Node> path; // shortest path found from start to goal
     public minHeap fringe;
 
-    // A* alogrithm 
+    // A* algorithm
     public ArrayList<Node> A(int sx, int sy, int gx, int gy, int col, int row, int[][] bkd, int count) {
 
         // initializing private variables
@@ -55,9 +55,6 @@ public class Astar {
         while (!fringe.isEmpty()) {
             //fringe.print();
             s = fringe.pop();
-            
-            
-
 
             if (s.row == goal.row && s.col == goal.col) {
                 path.add(s);
