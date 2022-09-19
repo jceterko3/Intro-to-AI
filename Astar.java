@@ -51,7 +51,7 @@ public class Astar {
 
 
         while (!fringe.isEmpty()) {
-            fringe.print();
+            //fringe.print();
             s = fringe.pop();
             
             
@@ -64,7 +64,7 @@ public class Astar {
                 while (!(s.parent.col == s.col && s.parent.row == s.row)) {
                     path.add(s.parent);
                     s = s.parent;
-                    System.out.println("ADDED NODE:"+(s.col+1)+", "+(s.row+1));
+                 //   System.out.println("ADDED NODE:"+(s.col+1)+", "+(s.row+1));
                     help++;
                 }
 
@@ -75,12 +75,13 @@ public class Astar {
             }
 
             closed.add(s);
-            System.out.println("closed: "+(s.col+1)+", "+(s.row+1));
+            System.out.println("added to closed: "+(s.col+1)+", "+(s.row+1));
             ArrayList<Node> succs = succ(s);
 
 
             for (int i = 0; i < succs.size(); i++) {
                 Node si = succs.get(i);
+                //System.out.println("testing succ:"+(si.col+1)+", "+(si.row+1));
                 if (si == null) {
                     break;
                 }
@@ -136,30 +137,90 @@ public class Astar {
         for (int row = r - 1; row < (r + 2); row++) {
             for (int col = c - 1; col < (c + 2); col++) {
                 if (!(row == r && col == c)) {
+
                     boolean isBlocked = false;
                     int vr = Math.min(row, r) + 1;
                     int vc = Math.min(col, c) + 1;
 
+
                     // if horizontal movement
+                    
+                    
                     if (row == r) {
+                        boolean bottom = false;
+                        boolean top = false;
+
+                        if(r==rows){
+                            bottom = true;
+                        }
+                        if(r == 0){
+                            top = true;
+    
+                        }
                         for (int i = 0; i < blocked.length; i++) {
                             if (blocked[i][0] == vc && blocked[i][1] == vr) {
-                                if (blocked[i][0] == (vc) && blocked[i][1] == (vr - 1)) {
-                                    isBlocked = true;
-                                }
-
+                                bottom = true;
                             }
+                            if (blocked[i][0] == vc && blocked[i][1] == (vr-1)) {
+                                top = true;
+                            }
+                        }
+                        System.out.println((vc-1)+","+(vr));
+                        System.out.println("for "+row+", "+col+" to "+r+", "+c+": bottom is "+bottom+", top is "+top);
+                        if(top && bottom){
+                            isBlocked = true;
                         }
 
                     } else if (col == c) {
+                        boolean right = false;
+                        boolean left = false;
+
+                        if(c==cols){
+                            right = true;
+                        }
+                        if(c == 0){
+                            left = true;
+    
+                        }
                         for (int i = 0; i < blocked.length; i++) {
                             if (blocked[i][0] == vc && blocked[i][1] == vr) {
-                                if (blocked[i][0] == (vc - 1) && blocked[i][1] == (vr)) {
-                                    isBlocked = true;
+                                right = true;
+                            }
+                            if (blocked[i][0] == (vc-1) && blocked[i][1] == vr) {
+                                left = true;
+                            }
+                        }
+                        System.out.println((vc-1)+","+(vr));
+                        if(left && right){
+                            isBlocked = true;
+                        }
+
+
+
+
+
+
+
+                        if(c == 0 || c == cols){
+                            isBlocked=true;
+                        }
+                        int newc = vc-1; //left vs right movement
+                        if(r<row){
+                            newc = vc+1;
+                          //  System.out.println("down movement: from "+c+" to "+col);
+                        }
+                        for (int i = 0; i < blocked.length; i++) {
+                            if (blocked[i][0] == vc && blocked[i][1] == vr) {
+                                //System.out.println("up is blocked");
+                                for(int j=0; j<blocked.length; j++){
+                                    if (blocked[j][0] == (newc) && blocked[j][1] == (vr)) {
+                                        isBlocked = true;
+                                    }
                                 }
 
                             }
                         }
+
                     } else {
                         for (int i = 0; i < blocked.length; i++) {
                             if (blocked[i][0] == vc && blocked[i][1] == vr) {

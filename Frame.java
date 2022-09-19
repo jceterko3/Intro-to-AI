@@ -50,7 +50,6 @@ public class Frame extends JFrame { // a class to create the GUI
 
     // creates grid with components
     public void paint(Graphics g) {
-
         // draws grid rectangles
         for (int x = 50; x <= 50 * cols; x += 50) {
             for (int y = 50; y <= 50 * rows; y += 50) {
@@ -99,14 +98,19 @@ public class Frame extends JFrame { // a class to create the GUI
         g.drawString("Goal Vertex", goalX * 50 - (dia / 2), goalY * 50 - (dia / 2));
 
         // add the final path
-        g.setColor(Color.red);
-        int[] xcoords = new int[path.size()];
-        int[] ycoords = new int[path.size()];
-        for(int i = 0; i < path.size(); i++){
-            xcoords[i] = (path.get(i).col + 1) * 50;
-            ycoords[i] = (path.get(i).row + 1) * 50;
+        if(path!=null){
+            g.setColor(Color.red);
+            int[] xcoords = new int[path.size()];
+            int[] ycoords = new int[path.size()];
+            for(int i = 0; i < path.size(); i++){
+                xcoords[i] = (path.get(i).col + 1) * 50;
+                ycoords[i] = (path.get(i).row + 1) * 50;
+            }
+            g.drawPolyline(xcoords,ycoords,path.size());
+
         }
-        g.drawPolyline(xcoords,ycoords,path.size());
+
+       
     }
 
 }
