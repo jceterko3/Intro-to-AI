@@ -30,6 +30,7 @@ public class Frame extends JFrame { // a class to create the GUI
         bkdCount = count;
         path = Apth;
 
+        getContentPane().setBackground(Color.WHITE);
         setSize(100 * cols, 100 * rows);
         setTitle("GRID PATH");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,6 +51,7 @@ public class Frame extends JFrame { // a class to create the GUI
 
     // creates grid with components
     public void paint(Graphics g) {
+
         // draws grid rectangles
         for (int x = 50; x <= 50 * cols; x += 50) {
             for (int y = 50; y <= 50 * rows; y += 50) {

@@ -91,7 +91,7 @@ public class Test {
         // A* Methods
         Astar Apath = new Astar();
         ArrayList<Node> apath = Apath.A(sx,sy,gx,gy,col,row,b,count);
-        Apath.print_hval_A();
+        //Apath.print_hval_A();
 
         // draws the grid with path 
         Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count,apath);
