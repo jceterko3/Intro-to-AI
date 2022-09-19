@@ -50,14 +50,14 @@ public class Test {
                 // he mentioned in the assignment we can only do one initialization for vertices? 
                 for(int i = 0; i < col*row; i++){
                     //hold all variables
-                    int r = scan.nextInt();
-                    int c = scan.nextInt();
+                    int x = scan.nextInt();
+                    int y = scan.nextInt();
                     isBlocked = scan.nextInt(); 
 
                     if(isBlocked == 1){    //if blocked then add to arraylist
                         bkd.add(new ArrayList<Integer>());
-                        bkd.get(count).add(r);   
-                        bkd.get(count).add(c); 
+                        bkd.get(count).add(x);   
+                        bkd.get(count).add(y); 
                         count++;
                     }
                     
