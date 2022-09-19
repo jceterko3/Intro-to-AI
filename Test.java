@@ -46,7 +46,15 @@ public class Test {
                 gy = scan.nextInt();
                 col = scan.nextInt();
                 row = scan.nextInt();
-                gridCells = new int[row][col];
+                gridCells = new int[row + 2][col + 2]; // adding 2 to create a frame of blocked cells around the grid
+                for(int i = 0; i < row + 2; i++){
+                    gridCells[i][0] = 1;
+                    gridCells[i][col + 1] = 1;
+                }
+                for(int i = 0; i < col + 2; i++){
+                    gridCells[0][i] = 1;
+                    gridCells[row + 1][i] = 1;
+                }
                 // obtaining the cells, not sure if this has to be optimized in some way 
                 // he mentioned in the assignment we can only do one initialization for vertices? 
                 for(int i = 0; i < col*row; i++){
@@ -60,7 +68,8 @@ public class Test {
                         bkd.get(count).add(x);   
                         bkd.get(count).add(y); 
                         count++;
-                        gridCells[c - 1][r - 1] = 1;
+                        System.out.println("x: " + x + "y: " + y);
+                        gridCells[y][x] = 1;
                     }
                 }
             }
@@ -98,10 +107,10 @@ public class Test {
 
         // Theta* Method
         ThetaStar thetaPath = new ThetaStar();
-        Node s = new Node(1,1,1.1);
-        Node si = new Node(2,4,2.2);
+        Node s = new Node(sy,sx,1.1);
+        Node si = new Node(gy,gx,2.2);
         thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells);
-        System.out.println("ObstacleInPath: " + thetaPath.ObstacleInPath(s,si));
+        System.out.println("Unblocked Path: " + thetaPath.UnblockedPath(s,si));
         // maybe here ask about viewing a vertex and displaying info in terminal?
         /*Scanner question = new Scanner(System.in);
         System.out.println("Enter a vertex (x,y) to view more info");
