@@ -1,3 +1,5 @@
+// adding something so i can push DELETE THIS
+
 public class Node{
     public double h;
     public double g;
