@@ -113,12 +113,14 @@ public class Test {
         Node si = new Node(gy,gx,2.2);
         thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells);
         System.out.println("Unblocked Path: " + thetaPath.UnblockedPath(s,si));
+
         // maybe here ask about viewing a vertex and displaying info in terminal?
-        /*Scanner question = new Scanner(System.in);
+        Scanner question = new Scanner(System.in);
         System.out.println("Enter a vertex (x,y) to view more info");
-                
+        // int[][] vertex 
+        // search for values associated to vertex (might need to create a new method)
         String answer = question.nextLine();
-        System.out.println("VALUES : ");*/
+        System.out.println("VALUES : ");
          
     }
     

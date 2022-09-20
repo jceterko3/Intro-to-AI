@@ -1,5 +1,3 @@
-// adding something so i can push DELETE THIS
-
 import java.awt.*;
 import javax.swing.*;
 import java.lang.Math;
@@ -45,6 +43,13 @@ public class Frame extends JFrame { // a class to create the GUI
         // determining scale, need to give some space for border 
         int scaleX = 1000/(cols+2);
         int scaleY = 850/(rows+2);
+
+        if(scaleX > scaleY){
+            scaleX = scaleY;
+        }
+        else if(scaleX < scaleY){
+            scaleY = scaleX;
+        }
 
         // draws grid rectangles
         for (int x = scaleX; x <= scaleX * cols; x += scaleX) {

@@ -23,8 +23,8 @@ public class createFile {
       FileWriter content = new FileWriter(args[0]);
 
       // initializing min and max values
-      int maxX = 10;
-      int maxY = 10;
+      int maxX = 1;
+      int maxY = 1;
       int minX = 1;
       int minY = 1;
       Random rand = new Random();
