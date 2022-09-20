@@ -16,10 +16,11 @@ public class Frame extends JFrame { // a class to create the GUI
     private int rows;
     private int[][] blocked; // includes all blocked cells
     private int bkdCount;
+    private Color pathColor; //color of the final path
     public ArrayList<Node> path; // shortest path found from start to goal
     public minHeap fringe;
 
-    public Frame(int sx, int sy, int gx, int gy, int col, int row, int[][] bkd, int count, ArrayList<Node> Apth) { // creates a pop up window
+    public Frame(int sx, int sy, int gx, int gy, int col, int row, int[][] bkd, int count, ArrayList<Node> Apth, Color pathColor) { // creates a pop up window
 
         startX = sx; // initializing private variables, need to offset by *50 to fit scale of grid
         startY = sy;
@@ -30,13 +31,13 @@ public class Frame extends JFrame { // a class to create the GUI
         blocked = bkd;
         bkdCount = count;
         path = Apth;
+        this.pathColor = pathColor;
 
         getContentPane().setBackground(Color.WHITE);
         setSize(1600,850);
         setTitle("GRID PATH");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-
     }
 
     // creates grid with components
@@ -110,7 +111,7 @@ public class Frame extends JFrame { // a class to create the GUI
 
         // add the final path
         if(path!=null){
-            g.setColor(Color.red);
+            g.setColor(pathColor);
             int[] xcoords = new int[path.size()];
             int[] ycoords = new int[path.size()];
             for(int i = 0; i < path.size(); i++){

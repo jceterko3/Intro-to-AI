@@ -97,23 +97,23 @@ public class Test {
         //Apath.print_hval_A();
 
         // draws the grid with path 
-        Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count,apath);
+        Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count,apath,Color.red);
 
         // TODO: Delete later - code to print grid cells
-        /*System.out.println("Printing grid: \n");
+        System.out.println("Printing grid: \n");
         for (int[] ints : gridCells) {
             for (int j = 0; j < gridCells[0].length; j++) {
                 System.out.print(ints[j] + "* ");
             }
             System.out.print('\n');
-        }*/
+        }
 
         // Theta* Method
-        /*ThetaStar thetaPath = new ThetaStar();
+        ThetaStar thetaPath = new ThetaStar();
         Node s = new Node(sy,sx,1.1);
         Node si = new Node(gy,gx,2.2);
         thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells);
-        System.out.println("Unblocked Path: " + thetaPath.UnblockedPath(s,si));*/
+        System.out.println("Unblocked Path: " + thetaPath.UnblockedPath(s,si));
 
         // ask about viewing a vertex and displaying info in terminal
         Scanner question = new Scanner(System.in);
