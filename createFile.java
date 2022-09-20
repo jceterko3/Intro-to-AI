@@ -23,33 +23,38 @@ public class createFile {
       FileWriter content = new FileWriter(args[0]);
 
       // initializing min and max values
-      int maxX = 4;
-      int maxY = 2;
+      int maxX = 10;
+      int maxY = 10;
       int minX = 1;
       int minY = 1;
       Random rand = new Random();
 
       // creating start & goal index 
-      int randNumXS = rand.nextInt((maxX - minX) + 1) + 1;
-      int randNumYS = rand.nextInt((maxY - minY) + 1) + 1;
-      int randNumXG = rand.nextInt((maxX - minX) + 1) + 1;
-      int randNumYG = rand.nextInt((maxY - minY) + 1) + 1;
+      int randNumXS = rand.nextInt((maxX+1 - minX) + 1) + 1;
+      int randNumYS = rand.nextInt((maxY+1 - minY) + 1) + 1;
+      int randNumXG = rand.nextInt((maxX+1 - minX) + 1) + 1;
+      int randNumYG = rand.nextInt((maxY+1 - minY) + 1) + 1;
 
       String newLine = System.getProperty("line.separator");
 
-      // writing start, goal, 100x50 to file 
+      // writing start, goal, grid dimensions
       content.write(randNumXS + " " + randNumYS + newLine);            
       content.write(randNumXG + " " + randNumYG + newLine);
       content.write(maxX + " " + maxY + newLine);
+
+      // determing amount of blocked cells 
+      int numBlocked = Math.round(maxX*maxY/10); 
+      int count = 0; 
 
       // writing cells 
       for(int x = 1; x <= maxX; x++){
         for(int y = 1; y <= maxY; y++){
           content.write(x + " " + y + " ");
 
-          boolean blocked = rand.nextInt(10)==0;
-          if(blocked == true){
+          boolean blocked = rand.nextInt(10) == 1;
+          if(blocked == true && count < numBlocked){
             content.write(1 + newLine);
+            count++;
           }
           else{
             content.write(0 + newLine);
@@ -58,6 +63,9 @@ public class createFile {
         }
       }
       content.close(); 
+
+      System.out.println("blocked: " + numBlocked + " " + "actually: " + count);
+
     } 
     catch (IOException e) {
         System.out.println("ERROR");
