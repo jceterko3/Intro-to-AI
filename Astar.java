@@ -74,7 +74,7 @@ public class Astar {
             }
 
             closed.add(s);
-            System.out.println("added to closed: "+(s.col+1)+", "+(s.row+1));
+            //System.out.println("added to closed: "+(s.col+1)+", "+(s.row+1));
             ArrayList<Node> succs = succ(s);
 
 
@@ -164,8 +164,8 @@ public class Astar {
                                 top = true;
                             }
                         }
-                        System.out.println((vc-1)+","+(vr));
-                        System.out.println("for "+row+", "+col+" to "+r+", "+c+": bottom is "+bottom+", top is "+top);
+                        //System.out.println((vc-1)+","+(vr));
+                        //System.out.println("for "+row+", "+col+" to "+r+", "+c+": bottom is "+bottom+", top is "+top);
                         if(top && bottom){
                             isBlocked = true;
                         }
@@ -193,12 +193,6 @@ public class Astar {
                         if(left && right){
                             isBlocked = true;
                         }
-
-
-
-
-
-
 
                         if(c == 0 || c == cols){
                             isBlocked=true;
@@ -254,6 +248,35 @@ public class Astar {
             }
             System.out.println();
         }
+    }
+
+    // need to edit these 
+    public double hval(int vertexX, int vertexY){
+
+        double val = 0; 
+        int x = vertexX-1;
+        int y = vertexY-1;
+
+        val = Math.round(graph[x][y].h * 100.0) / 100.0;
+        return val; 
+    }
+    public double gval(int vertexX, int vertexY){
+
+        double val = 0; 
+        int x = vertexX-1;
+        int y = vertexY-1;
+
+        val = Math.round(graph[x][y].g * 100.0) / 100.0;
+        return val; 
+    }
+    public double fval(int vertexX, int vertexY){
+
+        double val = 0; 
+        int x = vertexX-1;
+        int y = vertexY-1;
+
+        val = Math.round(graph[x][y].f * 100.0) / 100.0;
+        return val; 
     }
 
 }

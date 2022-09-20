@@ -43,7 +43,7 @@ public class Frame extends JFrame { // a class to create the GUI
     public void paint(Graphics g) {
 
         // determining scale
-        int scale = 14;
+        int scale = 1;
         if(rows <= 15 && cols <= 25){
             scale = 50;
         }

@@ -58,7 +58,7 @@ public class Test {
                     gridCells[0][i] = 1;
                     gridCells[row + 1][i] = 1;
                 }
-                
+
                 // obtaining the cells, not sure if this has to be optimized in some way 
                 // he mentioned in the assignment we can only do one initialization for vertices? 
                 for(int i = 0; i < col*row; i++){
@@ -115,13 +115,29 @@ public class Test {
         thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells);
         System.out.println("Unblocked Path: " + thetaPath.UnblockedPath(s,si));*/
 
-        // maybe here ask about viewing a vertex and displaying info in terminal?
+        // ask about viewing a vertex and displaying info in terminal
         Scanner question = new Scanner(System.in);
-        System.out.println("Enter a vertex (x,y) to view more info");
-        // int[][] vertex 
-        // search for values associated to vertex (might need to create a new method)
-        String answer = question.nextLine();
-        System.out.println("VALUES : ");
+        System.out.println("Enter a vertex in the form x y to view more info or close GUI to exit");
+        // while user is giving input
+        while(question.hasNext() == true){
+            // saving entered vertex 
+            int vertexX = question.nextInt();
+            int vertexY = question.nextInt();
+    
+            // search for values associated to vertex (might need to create a new method)
+            double h = Apath.hval(vertexX, vertexY);
+            double g = Apath.gval(vertexX, vertexY);
+            double f = Apath.fval(vertexX, vertexY);
+            System.out.println("H VALUE = " + h);
+            System.out.println();
+            System.out.println("G VALUE = " + g);
+            System.out.println();
+            System.out.println("F VALUE = " + f);
+            System.out.println();
+
+            System.out.println("Enter a vertex in the form x y to view more info or close GUI to exit");
+        }
+
          
     }
     
