@@ -1,3 +1,5 @@
+// adding something so i can push DELETE THIS
+
 import java.awt.*;
 import javax.swing.*;
 import java.lang.Math;
@@ -40,36 +42,43 @@ public class Frame extends JFrame { // a class to create the GUI
     // creates grid with components
     public void paint(Graphics g) {
 
-        // determining scale, need to give some space for border 
-        int scaleX = 1000/(cols+2);
-        int scaleY = 850/(rows+2);
-
-        if(scaleX > scaleY){
-            scaleX = scaleY;
+        // determining scale
+        int scale = 14;
+        if(rows <= 15 && cols <= 25){
+            scale = 50;
         }
-        else if(scaleX < scaleY){
-            scaleY = scaleX;
+        else if(rows <= 30 && cols <= 45){
+            scale = 30;
+        }
+        else if(rows <= 45 && cols <= 70){
+            scale = 20;
+        }
+        else if(rows <= 50 && cols <= 100){
+            scale = 14; 
+        }
+        else{
+            scale = 10;
         }
 
         // draws grid rectangles
-        for (int x = scaleX; x <= scaleX * cols; x += scaleX) {
-            for (int y = scaleY; y <= scaleY * rows; y += scaleY) {
-                g.drawRect(x, y, scaleX, scaleY);
+        for (int x = scale; x <= scale * cols; x += scale) {
+            for (int y = scale; y <= scale * rows; y += scale) {
+                g.drawRect(x, y, scale, scale);
             }
         }
-        
+
         // adding numbers to grid 
         g.setFont(new Font("TimesRoman", Font.PLAIN, 7));
         int num1 = 1;
-        for(int x = scaleX; x <= scaleX*(cols+1); x += scaleX){
+        for(int x = scale; x <= scale*(cols+1); x += scale){
             String number1 = Integer.toString(num1);
-            g.drawString(number1, x, scaleY);
+            g.drawString(number1, x, scale);
             num1++;
         }
         int num2 = 1;
-        for(int y = scaleY; y <= scaleY*(rows+1); y += scaleY){
+        for(int y = scale; y <= scale*(rows+1); y += scale){
             String number2 = Integer.toString(num2);
-            g.drawString(number2, scaleX-10, y);
+            g.drawString(number2, scale-10, y);
             num2++;
         }
 
@@ -80,24 +89,24 @@ public class Frame extends JFrame { // a class to create the GUI
         int blockedX = 0;
         int blockedY = 0;
         for (int count = bkdCount; count > 0; count--) {
-            blockedX = blocked[pt1][pt2] * scaleX;
-            blockedY = blocked[pt1][pt2 + 1] * scaleY;
-            g.fillRect(blockedX, blockedY, scaleX, scaleY);
+            blockedX = blocked[pt1][pt2] * scale;
+            blockedY = blocked[pt1][pt2 + 1] * scale;
+            g.fillRect(blockedX, blockedY, scale, scale);
             pt1++;
         }
 
         // circles start and goal vertex
-        int dia = scaleX/2; // diameter of circle
+        int dia = scale/2; // diameter of circle
         g.setColor(Color.blue);
-        g.drawOval(startX * scaleX - (dia / 2), startY * scaleY - (dia / 2), dia, dia);
+        g.drawOval(startX * scale - (dia / 2), startY * scale - (dia / 2), dia, dia);
         g.setColor(Color.green);
-        g.drawOval(goalX * scaleX - (dia / 2), goalY * scaleY - (dia / 2), dia, dia);
+        g.drawOval(goalX * scale - (dia / 2), goalY * scale - (dia / 2), dia, dia);
 
         // labels start and goal vertex
         g.setColor(Color.black);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
-        g.drawString("Start Vertex", startX * scaleX - (dia / 2), startY * scaleY - (dia / 2));
-        g.drawString("Goal Vertex", goalX * scaleX - (dia / 2), goalY * scaleY - (dia / 2));
+        g.drawString("Start Vertex", startX * scale - (dia / 2), startY * scale - (dia / 2));
+        g.drawString("Goal Vertex", goalX * scale - (dia / 2), goalY * scale - (dia / 2));
 
         // add the final path
         if(path!=null){
@@ -105,8 +114,8 @@ public class Frame extends JFrame { // a class to create the GUI
             int[] xcoords = new int[path.size()];
             int[] ycoords = new int[path.size()];
             for(int i = 0; i < path.size(); i++){
-                xcoords[i] = (path.get(i).col + 1) * scaleX;
-                ycoords[i] = (path.get(i).row + 1) * scaleY;
+                xcoords[i] = (path.get(i).col + 1) * scale;
+                ycoords[i] = (path.get(i).row + 1) * scale;
             }
             g.drawPolyline(xcoords,ycoords,path.size());
 

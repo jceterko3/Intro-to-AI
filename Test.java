@@ -48,6 +48,7 @@ public class Test {
                 gy = scan.nextInt();
                 col = scan.nextInt();
                 row = scan.nextInt();
+
                 gridCells = new int[row + 2][col + 2]; // adding 2 to create a frame of blocked cells around the grid
                 for(int i = 0; i < row + 2; i++){
                     gridCells[i][0] = 1;
@@ -57,6 +58,7 @@ public class Test {
                     gridCells[0][i] = 1;
                     gridCells[row + 1][i] = 1;
                 }
+                
                 // obtaining the cells, not sure if this has to be optimized in some way 
                 // he mentioned in the assignment we can only do one initialization for vertices? 
                 for(int i = 0; i < col*row; i++){
@@ -70,7 +72,6 @@ public class Test {
                         bkd.get(count).add(x);   
                         bkd.get(count).add(y); 
                         count++;
-                        System.out.println("x: " + x + "y: " + y);
                         gridCells[y][x] = 1;
                     }
                 }
@@ -99,20 +100,20 @@ public class Test {
         Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count,apath);
 
         // TODO: Delete later - code to print grid cells
-        System.out.println("Printing grid: \n");
+        /*System.out.println("Printing grid: \n");
         for (int[] ints : gridCells) {
             for (int j = 0; j < gridCells[0].length; j++) {
                 System.out.print(ints[j] + "* ");
             }
             System.out.print('\n');
-        }
+        }*/
 
         // Theta* Method
-        ThetaStar thetaPath = new ThetaStar();
+        /*ThetaStar thetaPath = new ThetaStar();
         Node s = new Node(sy,sx,1.1);
         Node si = new Node(gy,gx,2.2);
         thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells);
-        System.out.println("Unblocked Path: " + thetaPath.UnblockedPath(s,si));
+        System.out.println("Unblocked Path: " + thetaPath.UnblockedPath(s,si));*/
 
         // maybe here ask about viewing a vertex and displaying info in terminal?
         Scanner question = new Scanner(System.in);
