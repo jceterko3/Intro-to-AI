@@ -100,7 +100,7 @@ public class Astar {
             }
         }
 
-        System.out.println("path not found");
+        System.out.println("A* path not found");
         return null;
 
     }

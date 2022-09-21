@@ -96,9 +96,6 @@ public class Test {
         ArrayList<Node> apath = Apath.A(sx,sy,gx,gy,col,row,b,count);
         //Apath.print_hval_A();
 
-        // draws the grid with path 
-        //Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count,apath,Color.red);
-
         // TODO: Delete later - code to print grid cells
 //        System.out.println("Printing grid: \n");
 //        for (int[] ints : gridCells) {
@@ -110,17 +107,19 @@ public class Test {
 
         // Theta* Method
         ThetaStar thetaPath = new ThetaStar();
-        thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells,b);
+        ArrayList<Node> tpath = thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells,b);
 //        System.out.println("A* PATH:\n");
 //        for(Node n : apath){
 //            System.out.print("("+n.row+", "+n.col+")");
 //        }
-        System.out.println("THETA* PATH:\n");
-        for(Node n : thetaPath.path){
-            System.out.print("("+n.row+", "+n.col+")");
-        }
-        // draws the grid with path
-        Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count,thetaPath.path,Color.blue);
+//        System.out.println("THETA* PATH:\n");
+//        for(Node n : thetaPath.path){
+//            System.out.print("("+n.row+", "+n.col+")");
+//        }
+
+
+        // draws the grid with path 
+        Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count,apath,tpath);
 
         // ask about viewing a vertex and displaying info in terminal
         Scanner question = new Scanner(System.in);
@@ -131,15 +130,21 @@ public class Test {
             int vertexX = question.nextInt();
             int vertexY = question.nextInt();
 
-            // search for values associated to vertex (might need to create a new method)
-            double h = Apath.hval(vertexX, vertexY);
-            double g = Apath.gval(vertexX, vertexY);
-            double f = Apath.fval(vertexX, vertexY);
-            System.out.println("H VALUE = " + h);
+            // search for values associated to vertex A*
+            double hA = Apath.hval(vertexX, vertexY);
+            double gA = Apath.gval(vertexX, vertexY);
+            double fA = Apath.fval(vertexX, vertexY);
+            System.out.println("A* H VALUE = " + hA);
+            System.out.println("A* G VALUE = " + gA);
+            System.out.println("A* F VALUE = " + fA);
             System.out.println();
-            System.out.println("G VALUE = " + g);
-            System.out.println();
-            System.out.println("F VALUE = " + f);
+
+            double hT = thetaPath.hval(vertexX, vertexY);
+            double gT = thetaPath.gval(vertexX, vertexY);
+            double fT = thetaPath.fval(vertexX, vertexY);
+            System.out.println("theta* H VALUE = " + hT);
+            System.out.println("theta* G VALUE = " + gT);
+            System.out.println("theta* F VALUE = " + fT);
             System.out.println();
 
             System.out.println("Enter a vertex in the form x y to view more info or close GUI to exit");
