@@ -21,7 +21,7 @@ public class Astar {
     public ArrayList<Node> A(int sx, int sy, int gx, int gy, int col, int row, int[][] bkd, int count) {
 
         // initializing private variables
-        startX = sx; 
+        startX = sx;
         startY = sy;
         goalX = gx;
         goalY = gy;
@@ -29,7 +29,7 @@ public class Astar {
         rows = row;
         blocked = bkd;
         path = new ArrayList<Node>();
-        
+
         // calculate heuristic values and construct
         graph = new Node[rows + 1][cols + 1];
         for (int i = 0; i <= rows; i++) {
@@ -41,7 +41,7 @@ public class Astar {
             }
         }
 
-        // setting up A* start, goal, fringe, parents, closed list 
+        // setting up A* start, goal, fringe, parents, closed list
         Node s;
         Node start = graph[startY - 1][startX - 1];
         Node goal = graph[goalY - 1][goalX - 1];
@@ -51,9 +51,8 @@ public class Astar {
         fringe.insert(start);
         ArrayList<Node> closed = new ArrayList<Node>();
 
-
         while (!fringe.isEmpty()) {
-            //fringe.print();
+            // fringe.print();
             s = fringe.pop();
 
             if (s.row == goal.row && s.col == goal.col) {
@@ -63,7 +62,7 @@ public class Astar {
                 while (!(s.parent.col == s.col && s.parent.row == s.row)) {
                     path.add(s.parent);
                     s = s.parent;
-                 //   System.out.println("ADDED NODE:"+(s.col+1)+", "+(s.row+1));
+                    // System.out.println("ADDED NODE:"+(s.col+1)+", "+(s.row+1));
                     help++;
                 }
 
@@ -74,13 +73,12 @@ public class Astar {
             }
 
             closed.add(s);
-            //System.out.println("added to closed: "+(s.col+1)+", "+(s.row+1));
+            // System.out.println("added to closed: "+(s.col+1)+", "+(s.row+1));
             ArrayList<Node> succs = succ(s);
-
 
             for (int i = 0; i < succs.size(); i++) {
                 Node si = succs.get(i);
-                //System.out.println("testing succ:"+(si.col+1)+", "+(si.row+1));
+                // System.out.println("testing succ:"+(si.col+1)+", "+(si.row+1));
                 if (si == null) {
                     break;
                 }
@@ -117,7 +115,7 @@ public class Astar {
                     isFringe = true;
                 }
             }
-            if(isFringe){
+            if (isFringe) {
                 fringe.remove(si);
             }
             si.f = si.g + si.h;
@@ -140,33 +138,31 @@ public class Astar {
                     boolean isBlocked = false;
                     int vr = Math.min(row, r) + 1;
                     int vc = Math.min(col, c) + 1;
-
+                    System.out.println("succ for " + (r + 1) + "," + (c + 1) + ": " + (row + 1) + "," + (col + 1));
 
                     // if horizontal movement
-                    
-                    
+
                     if (row == r) {
                         boolean bottom = false;
                         boolean top = false;
 
-                        if(r==rows){
+                        if (r == rows) {
                             bottom = true;
                         }
-                        if(r == 0){
+                        if (r == 0) {
                             top = true;
-    
+
                         }
                         for (int i = 0; i < blocked.length; i++) {
                             if (blocked[i][0] == vc && blocked[i][1] == vr) {
                                 bottom = true;
                             }
-                            if (blocked[i][0] == vc && blocked[i][1] == (vr-1)) {
+                            if (blocked[i][0] == vc && blocked[i][1] == (vr - 1)) {
                                 top = true;
                             }
                         }
-                        //System.out.println((vc-1)+","+(vr));
-                        //System.out.println("for "+row+", "+col+" to "+r+", "+c+": bottom is "+bottom+", top is "+top);
-                        if(top && bottom){
+                        
+                        if (top && bottom) {
                             isBlocked = true;
                         }
 
@@ -174,44 +170,23 @@ public class Astar {
                         boolean right = false;
                         boolean left = false;
 
-                        if(c==cols){
+                        if (c == cols) {
                             right = true;
                         }
-                        if(c == 0){
+                        if (c == 0) {
                             left = true;
-    
+
                         }
                         for (int i = 0; i < blocked.length; i++) {
                             if (blocked[i][0] == vc && blocked[i][1] == vr) {
                                 right = true;
                             }
-                            if (blocked[i][0] == (vc-1) && blocked[i][1] == vr) {
+                            if (blocked[i][0] == (vc - 1) && blocked[i][1] == vr) {
                                 left = true;
                             }
                         }
-                        System.out.println((vc-1)+","+(vr));
-                        if(left && right){
+                        if (left && right) {
                             isBlocked = true;
-                        }
-
-                        if(c == 0 || c == cols){
-                            isBlocked=true;
-                        }
-                        int newc = vc-1; //left vs right movement
-                        if(r<row){
-                            newc = vc+1;
-                          //  System.out.println("down movement: from "+c+" to "+col);
-                        }
-                        for (int i = 0; i < blocked.length; i++) {
-                            if (blocked[i][0] == vc && blocked[i][1] == vr) {
-                                //System.out.println("up is blocked");
-                                for(int j=0; j<blocked.length; j++){
-                                    if (blocked[j][0] == (newc) && blocked[j][1] == (vr)) {
-                                        isBlocked = true;
-                                    }
-                                }
-
-                            }
                         }
 
                     } else {
@@ -227,6 +202,7 @@ public class Astar {
                             if (col >= 0 && col <= cols) {
 
                                 succs.add(graph[row][col]);
+                                System.out.println("SUCCESS");
                                 count++;
 
                             }
@@ -244,38 +220,40 @@ public class Astar {
     public void print_hval_A() {
         for (int i = 0; i <= rows; i++) {
             for (int j = 0; j <= cols; j++) {
-                System.out.print(Math.round(graph[i][j].h * 100.0) / 100.0 + "   ");
+                // System.out.print(Math.round(graph[i][j].h * 100.0) / 100.0 + " ");
             }
-            System.out.println();
+            // System.out.println();
         }
     }
 
-    public double hval(int vertexX, int vertexY){
-        //System.out.println("rows: "+graph.length+", cols: "+graph[0].length);
-        double val = 0; 
-        int x = vertexX-1;
-        int y = vertexY-1;
+    public double hval(int vertexX, int vertexY) {
+        // System.out.println("rows: "+graph.length+", cols: "+graph[0].length);
+        double val = 0;
+        int x = vertexX - 1;
+        int y = vertexY - 1;
 
         val = Math.round(graph[y][x].h * 100.0) / 100.0;
-        return val; 
+        return val;
     }
-    public double gval(int vertexX, int vertexY){
 
-        double val = 0; 
-        int x = vertexX-1;
-        int y = vertexY-1;
+    public double gval(int vertexX, int vertexY) {
+
+        double val = 0;
+        int x = vertexX - 1;
+        int y = vertexY - 1;
 
         val = Math.round(graph[y][x].g * 100.0) / 100.0;
-        return val; 
+        return val;
     }
-    public double fval(int vertexX, int vertexY){
 
-        double val = 0; 
-        int x = vertexX-1;
-        int y = vertexY-1;
+    public double fval(int vertexX, int vertexY) {
+
+        double val = 0;
+        int x = vertexX - 1;
+        int y = vertexY - 1;
 
         val = Math.round(graph[y][x].f * 100.0) / 100.0;
-        return val; 
+        return val;
     }
 
 }

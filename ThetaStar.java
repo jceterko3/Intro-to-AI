@@ -47,7 +47,7 @@ public class ThetaStar {
                 graph[i][j] = new Node(i, j, cval(new Node(i, j, 0), goalNode));
             }
         }
-        System.out.println("H VAL OF GOAL VERTEX: " + graph[goalY - 1][goalX - 1].h);
+        //System.out.println("H VAL OF GOAL VERTEX: " + graph[goalY - 1][goalX - 1].h);
         // setting up A* start, goal, fringe, parents, closed list
         Node s;
         Node start = graph[startY - 1][startX - 1];
@@ -203,7 +203,7 @@ public class ThetaStar {
                                 left = true;
                             }
                         }
-                        System.out.println((vc-1)+","+(vr));
+                       // System.out.println((vc-1)+","+(vr));
                         if(left && right){
                             isBlocked = true;
                         }
@@ -305,7 +305,7 @@ public class ThetaStar {
      */
     private boolean UnblockedPath (Node s, Node si){
 
-        System.out.println("startX: " + startX + " startY: " + startY + " goalX: " + goalX + " goalY: " + goalY + " cols: " + cols + " rows: " + rows + " ");
+        //System.out.println("startX: " + startX + " startY: " + startY + " goalX: " + goalX + " goalY: " + goalY + " cols: " + cols + " rows: " + rows + " ");
         // initialize variables
         int x0 = s.row + 1;
         int y0 = s.col + 1;
@@ -315,7 +315,7 @@ public class ThetaStar {
         int dy = y1 - y0;
         int dx = x1 - x0;
         int sx, sy;
-        System.out.println("x0: " + x0 + " y0: " + y0 + " x1: " + x1 + " y1: " + y1 + " dx: " + dx + " dy: " + dy + " ");
+        //System.out.println("x0: " + x0 + " y0: " + y0 + " x1: " + x1 + " y1: " + y1 + " dx: " + dx + " dy: " + dy + " ");
         // initialize variables
         if(dy < 0){
             dy = -dy;

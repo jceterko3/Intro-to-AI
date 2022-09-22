@@ -61,8 +61,8 @@ public class minHeap {
         }
       //  System.out.println("inserted: "+(A[curr].col+1)+", "+(A[curr].row+1)+", index="+curr);
 
-        System.out.print("FRINGE:  ");
-
+       // System.out.print("FRINGE:  ");
+/*
         for (int i = 1; i < A.length; i++) {
             if (A[i] != null) {
                 System.out.print((A[i].col + 1) + ", " + (A[i].row + 1) + ", f=" + (Math.round(A[i].f) * 100.0 / 100.0)
@@ -71,7 +71,7 @@ public class minHeap {
             }
 
         }
-        System.out.println();
+        System.out.println();*/
 
     }
 
