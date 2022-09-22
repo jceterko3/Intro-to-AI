@@ -41,12 +41,13 @@ public class ThetaStar {
 
         // initialize graph
         graph = new Node[rows + 1][cols + 1];
+        Node goalNode = new Node (goalY - 1, goalX - 1, 0);
         for (int i = 0; i <= rows; i++) {
             for (int j = 0; j <= cols; j++) {
-                graph[i][j] = new Node(i, j, 0);
+                graph[i][j] = new Node(i, j, cval(new Node(i, j, 0), goalNode));
             }
         }
-
+        System.out.println("H VAL OF GOAL VERTEX: " + graph[goalY - 1][goalX - 1].h);
         // setting up A* start, goal, fringe, parents, closed list
         Node s;
         Node start = graph[startY - 1][startX - 1];
@@ -123,7 +124,7 @@ public class ThetaStar {
                     }
                 }
                 if(isFringe) fringe.remove(si);
-                si.f = si.g + c;
+                si.f = si.g + si.h;
                 fringe.insert(si);
             }
         }
@@ -319,82 +320,82 @@ public class ThetaStar {
         if(dy < 0){
             dy = -dy;
             sy = -1;
-            System.out.println("going1 \t dy: "+dy+"\tsy: "+sy);
+//            System.out.println("going1 \t dy: "+dy+"\tsy: "+sy);
         }
         else{
             sy = 1;
-            System.out.println("going2 \t dy: "+dy+"\tsy: "+sy);
+//            System.out.println("going2 \t dy: "+dy+"\tsy: "+sy);
         }
 
         if(dx < 0){
             dx = -dx;
             sx = -1;
-            System.out.println("going3 \t dx: "+dx+"\tsx: "+sx);
+//            System.out.println("going3 \t dx: "+dx+"\tsx: "+sx);
         }
         else{
             sx = 1;
-            System.out.println("going4 \t dx: "+dx+"\tsx: "+sx);
+//            System.out.println("going4 \t dx: "+dx+"\tsx: "+sx);
         }
 
         if(dx >= dy){
-            System.out.println("going5");
+//            System.out.println("going5");
             while(x0 != x1){
                 f = f + dy;
-                System.out.println("going6 \tf: "+f);
+//                System.out.println("going6 \tf: "+f);
                 if(f >= dx){
                     int x = x0 + ((sx - 1)/2);
                     int y = y0 + ((sy - 1)/2);
-                    System.out.println("going7 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+//                    System.out.println("going7 grid(" + x + "," + y + ") = " + gridCells[x][y]);
                     if(gridCells[x][y] > 0) return false;
                     y0 += sy;
                     f -= dx;
-                    System.out.println("going8 \tf: "+f+"\ty0: " + y0);
+//                    System.out.println("going8 \tf: "+f+"\ty0: " + y0);
                 }
                 int x = x0 + ((sx - 1)/2);
                 int y = y0 + ((sy - 1)/2);
                 if(f != 0 && gridCells[x][y] > 0){
-                    System.out.println("going9 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+//                    System.out.println("going9 grid(" + x + "," + y + ") = " + gridCells[x][y]);
                     return false;
                 }
                 if(dy == 0 && gridCells[x0 + ((sx - 1)/2)][y0] > 0 && gridCells[x0 + ((sx - 1)/2)][y0 - 1] > 0){
-                    System.out.println("going10 grid(" + x + "," + y0 + ") = " + gridCells[x][y0]);
-                    System.out.println("grid(" + x + "," + (y0-1) + ") = " + gridCells[x][y0-1]);
+//                    System.out.println("going10 grid(" + x + "," + y0 + ") = " + gridCells[x][y0]);
+//                    System.out.println("grid(" + x + "," + (y0-1) + ") = " + gridCells[x][y0-1]);
                     return false;
                 }
                 x0 += sx;
-                System.out.println("going11 x0: " + x0);
+//                System.out.println("going11 x0: " + x0);
             }
         }
         else {
-            System.out.println("going12");
+//            System.out.println("going12");
             while (y0 != y1) {
                 f = f + dx;
-                System.out.println("going13 \tf: " + f);
+//                System.out.println("going13 \tf: " + f);
                 if (f >= dy) {
                     int x = x0 + ((sx - 1) / 2);
                     int y = y0 + ((sy - 1) / 2);
-                    System.out.println("going14 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+//                    System.out.println("going14 grid(" + x + "," + y + ") = " + gridCells[x][y]);
                     if (gridCells[x0 + ((sx - 1) / 2)][y0 + ((sy - 1) / 2)] > 0) return false;
                     x0 += sx;
                     f -= dy;
-                    System.out.println("going15 \tf: " + f + "\tx0: " + x0);
+//                    System.out.println("going15 \tf: " + f + "\tx0: " + x0);
                 }
                 int x = x0 + ((sx - 1) / 2);
                 int y = y0 + ((sy - 1) / 2);
                 if (f != 0 && gridCells[x0 + ((sx - 1) / 2)][y0 + ((sy - 1) / 2)] > 0) {
-                    System.out.println("going16 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+//                    System.out.println("going16 grid(" + x + "," + y + ") = " + gridCells[x][y]);
                     return false;
                 }
                 if (dx == 0 && gridCells[x0][y0 + ((sy - 1) / 2)] > 0 && gridCells[x0 - 1][y0 + ((sy - 1) / 2)] > 0) {
-                    System.out.println("going17 grid(" + x0 + "," + y + ") = " + gridCells[x0][y]);
-                    System.out.println("grid(" + (x0 - 1) + "," + y + ") = " + gridCells[x0 - 1][y]);
+//                    System.out.println("going17 grid(" + x0 + "," + y + ") = " + gridCells[x0][y]);
+//                    System.out.println("grid(" + (x0 - 1) + "," + y + ") = " + gridCells[x0 - 1][y]);
                     return false;
                 }
                 y0 += sy;
-                System.out.println("going18 y0: " + y0);
+//                System.out.println("going18 y0: " + y0);
             }
         }
-        System.out.println("going19TRUE");
+//        System.out.println("going19TRUE");
         return true;
     }
 
