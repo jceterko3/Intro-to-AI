@@ -49,7 +49,7 @@ public class Frame extends JFrame { // a class to create the GUI
             scale = 100;
         }
         else if(rows <= 10 && cols <= 15){
-            scale = 75;
+            scale = 70;
         }
         else if(rows <= 15 && cols <= 25){
             scale = 50;
@@ -79,7 +79,7 @@ public class Frame extends JFrame { // a class to create the GUI
         int num1 = 1;
         for(int x = scale; x <= scale*(cols+1); x += scale){
             String number1 = Integer.toString(num1);
-            g.drawString(number1, x, scale);
+            g.drawString(number1, x, scale-3);
             num1++;
         }
         int num2 = 1;
@@ -103,7 +103,7 @@ public class Frame extends JFrame { // a class to create the GUI
         }
 
         // circles start and goal vertex
-        int dia = scale/2; // diameter of circle
+        int dia = scale/(3/2); // diameter of circle
         g.setColor(Color.cyan);
         g.drawOval(startX * scale - (dia / 2), startY * scale - (dia / 2), dia, dia);
         g.setColor(Color.green);

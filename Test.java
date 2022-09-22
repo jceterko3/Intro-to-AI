@@ -130,7 +130,7 @@ public class Test {
             int vertexX = question.nextInt();
             int vertexY = question.nextInt();
 
-            // search for values associated to vertex A*
+            // search for values associated to vertex 
             double hA = Apath.hval(vertexX, vertexY);
             double gA = Apath.gval(vertexX, vertexY);
             double fA = Apath.fval(vertexX, vertexY);

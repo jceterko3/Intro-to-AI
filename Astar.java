@@ -250,7 +250,6 @@ public class Astar {
         }
     }
 
-    // need to edit these 
     public double hval(int vertexX, int vertexY){
         //System.out.println("rows: "+graph.length+", cols: "+graph[0].length);
         double val = 0; 

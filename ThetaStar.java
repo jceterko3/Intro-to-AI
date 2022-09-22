@@ -271,7 +271,7 @@ public class ThetaStar {
         int x = vertexX-1;
         int y = vertexY-1;
 
-        val = Math.round(graph[x][y].h * 100.0) / 100.0;
+        val = Math.round(graph[y][x].h * 100.0) / 100.0;
         return val;
     }
     public double gval(int vertexX, int vertexY){
@@ -280,7 +280,7 @@ public class ThetaStar {
         int x = vertexX-1;
         int y = vertexY-1;
 
-        val = Math.round(graph[x][y].g * 100.0) / 100.0;
+        val = Math.round(graph[y][x].g * 100.0) / 100.0;
         return val;
     }
     public double fval(int vertexX, int vertexY){
@@ -289,7 +289,7 @@ public class ThetaStar {
         int x = vertexX-1;
         int y = vertexY-1;
 
-        val = Math.round(graph[x][y].f * 100.0) / 100.0;
+        val = Math.round(graph[y][x].f * 100.0) / 100.0;
         return val;
     }
 
