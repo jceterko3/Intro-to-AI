@@ -61,7 +61,7 @@ public class Frame extends JFrame { // a class to create the GUI
             scale = 20;
         }
         else if(rows <= 50 && cols <= 100){
-            scale = 14; 
+            scale = 13; 
         }
         else{
             scale = 10;
@@ -140,6 +140,13 @@ public class Frame extends JFrame { // a class to create the GUI
             g.drawPolyline(xcoords,ycoords,Tpath.size());
 
         }
+
+        // key
+        g.drawLine(((cols+1)*scale+25), scale, ((cols+1)*scale+50), scale);
+        g.drawString("Theta* Path", ((cols+1)*scale+50), scale+15);
+        g.setColor(Color.red);
+        g.drawLine(((cols+1)*scale+25), scale+25, ((cols+1)*scale+50), scale+25);
+        g.drawString("A* Path", ((cols+1)*scale+50), scale+35);
 
        
     }
