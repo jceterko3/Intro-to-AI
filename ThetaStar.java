@@ -292,9 +292,8 @@ public class ThetaStar {
         val = Math.round(graph[y][x].f * 100.0) / 100.0;
         return val;
     }
-
     public double cval(Node s, Node si){
-        return Math.sqrt(Math.abs(s.row - si.row) + Math.abs(s.col - si.col));
+        return Math.sqrt(Math.pow(Math.abs(s.row - si.row),2) + Math.pow(Math.abs(s.col - si.col),2));
     }
 
     /**
