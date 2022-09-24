@@ -42,6 +42,8 @@ To execute, use the following command format:
         remaining lines = cell number and its status (blocked or unblocked)
     the code will only run properly if the file is in the correct format with the correct number of cells 
 
+GUI Description: 
+
     The GUI will appear in a popup window and it is best to expand the GUI to full screen to ensure the whole grid is seen. The GUI will have all components (start vertex, goal vertex, theta* path, A* path, and number labels) appear at once. 
 
     The terminal will display the line "Enter a vertex in the form x y to view more info or close GUI to exit" where the user can enter a vertex in the form x y to view the f, g and h values associated to that vertex when using A* and theta*. The question will keep displaying until the user closes the GUI window. 
