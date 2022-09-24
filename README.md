@@ -2,6 +2,7 @@ Intro to AI: Assignment 1 Part 1
 Contributors: Jennifer Ceterko, Amanda  , Kenisha  
 
 Files: 
+
     - Astar.java 
         Implementation of A* algorithm and methods
     - ThetaStar.java
@@ -20,7 +21,9 @@ Files:
         holds all 50 100x50 grids used for experiments 
 
 Compliation/Execution:
+
 In the terminal, compile all files individually by using the following commands: 
+
     javac Node.java
     javac minHeap.java
     javac Astar.java
@@ -29,8 +32,9 @@ In the terminal, compile all files individually by using the following commands:
     javac Test.java
 
 To execute, use the following command format: 
-    java Test filename.txt
 
+    java Test filename.txt
+    
     where filename is the input file following the format listed in the assignment 
         1st line = start vertex
         2nd line = goal vertex
