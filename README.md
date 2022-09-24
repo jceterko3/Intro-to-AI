@@ -1,5 +1,5 @@
 Intro to AI: Assignment 1 Part 1
-Contributors: Jennifer Ceterko, Amanda ___, Kenisha___
+Contributors: Jennifer Ceterko, Amanda  , Kenisha  
 
 Files: 
     - Astar.java 
