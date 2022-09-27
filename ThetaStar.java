@@ -113,8 +113,10 @@ public class ThetaStar {
     private void updateVertex(Node s, Node si) {
         boolean isFringe = false;
         double c = cval(s,si);
+        double no1 = Math.round(s.parent.g*1000.0)/1000.0;
+        double no2 = Math.round(si.g*1000.0)/1000.0;
         if(UnblockedPath(s.parent,si)){
-            if(s.parent.g + cval(s.parent,si) < si.g){
+            if(no1 + cval(s.parent,si) < no2){
                 si.g = s.parent.g + cval(s.parent,si);
                 si.parent = s.parent;
                 for(int j = 0; j < fringe.A.length; j++) {
