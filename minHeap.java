@@ -54,7 +54,12 @@ public class minHeap {
         size++;
         A[size] = node;
         int curr = size;
-        while (A[curr].f < A[parent(curr)].f) {
+        while (A[curr].f <= A[parent(curr)].f) {
+            if(A[curr].f==A[parent(curr)].f){
+                if(A[curr].g<A[parent(curr)].g){
+                    break;
+                }
+            }
             swap(curr, parent(curr));
             curr = parent(curr);
           //  System.out.println("test: "+parent(curr));
