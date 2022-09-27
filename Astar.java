@@ -106,7 +106,10 @@ public class Astar {
     private void updateVertex(Node s, Node si) {
 
         double c = Math.sqrt(Math.abs(s.row - si.row) + Math.abs(s.col - si.col));
-        if ((s.g + c) < si.g) {
+        double no1 = Math.round(s.g*1000.0)/1000.0;
+        double no2 = Math.round(si.g*1000.0)/1000.0;
+
+        if ((no1 + c) < no2) {
             si.g = s.g + c;
             si.parent = s;
             boolean isFringe = false;
@@ -138,7 +141,7 @@ public class Astar {
                     boolean isBlocked = false;
                     int vr = Math.min(row, r) + 1;
                     int vc = Math.min(col, c) + 1;
-                    System.out.println("succ for " + (r + 1) + "," + (c + 1) + ": " + (row + 1) + "," + (col + 1));
+                   // System.out.println("succ for " + (r + 1) + "," + (c + 1) + ": " + (row + 1) + "," + (col + 1));
 
                     // if horizontal movement
 
@@ -202,7 +205,7 @@ public class Astar {
                             if (col >= 0 && col <= cols) {
 
                                 succs.add(graph[row][col]);
-                                System.out.println("SUCCESS");
+                                //System.out.println("SUCCESS");
                                 count++;
 
                             }
@@ -232,7 +235,7 @@ public class Astar {
         int x = vertexX - 1;
         int y = vertexY - 1;
 
-        val = Math.round(graph[y][x].h * 100.0) / 100.0;
+        val = Math.round(graph[y][x].h * 1000.0) / 1000.0;
         return val;
     }
 
@@ -242,7 +245,7 @@ public class Astar {
         int x = vertexX - 1;
         int y = vertexY - 1;
 
-        val = Math.round(graph[y][x].g * 100.0) / 100.0;
+        val = Math.round(graph[y][x].g * 1000.0) / 1000.0;
         return val;
     }
 
@@ -252,7 +255,7 @@ public class Astar {
         int x = vertexX - 1;
         int y = vertexY - 1;
 
-        val = Math.round(graph[y][x].f * 100.0) / 100.0;
+        val = Math.round(graph[y][x].f * 1000.0) / 1000.0;
         return val;
     }
 

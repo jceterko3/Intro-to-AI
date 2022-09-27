@@ -43,6 +43,7 @@ public class minHeap {
     }
 
     public void insert(Node node) {
+      //  System.out.println("INSERTING: "+ (node.col+1)+", "+(node.row+1));
         if (size >= max) {
             return;
         }
@@ -54,29 +55,39 @@ public class minHeap {
         size++;
         A[size] = node;
         int curr = size;
-        while (A[curr].f <= A[parent(curr)].f) {
-            if(A[curr].f==A[parent(curr)].f){
-                if(A[curr].g<A[parent(curr)].g){
-                    break;
-                }
-            }
+        while ((A[curr].f < A[parent(curr)].f)) {
+
             swap(curr, parent(curr));
             curr = parent(curr);
           //  System.out.println("test: "+parent(curr));
         }
-      //  System.out.println("inserted: "+(A[curr].col+1)+", "+(A[curr].row+1)+", index="+curr);
 
-       // System.out.print("FRINGE:  ");
+        double epsilon = 0.000001d;
+
+
+        if(Math.abs(A[curr].f-A[parent(curr)].f) < epsilon){
+           // System.out.println("tiebreak: "+(A[curr].col+1)+", "+(A[curr].row+1)+" and "+(A[parent(curr)].col+1)+", "+(A[parent(curr)].row+1));
+
+            if(A[curr].g>A[parent(curr)].g){
+                swap(curr, parent(curr));
+                curr = parent(curr);
+            }
+
+        }
+      //  System.out.println("inserted: "+(A[curr].col+1)+", "+(A[curr].row+1)+", index="+curr);
 /*
+        System.out.print("FRINGE:  ");
+
         for (int i = 1; i < A.length; i++) {
             if (A[i] != null) {
-                System.out.print((A[i].col + 1) + ", " + (A[i].row + 1) + ", f=" + (Math.round(A[i].f) * 100.0 / 100.0)
+                System.out.print((A[i].col + 1) + ", " + (A[i].row + 1) + ", f=" + (Math.round(A[i].f*1000.0) / 1000.0)
                         + "    ");
 
             }
 
         }
-        System.out.println();*/
+        System.out.println();
+        */
 
     }
 
