@@ -50,16 +50,16 @@ public class Frame extends JFrame { // a class to create the GUI
             scale = 60; 
         }
         else if(rows <= 15 && cols <= 25){
-            scale = 45; 
+            scale = 40; 
         }
         else if(rows <= 25 && cols <= 45){
-            scale = 27; 
+            scale = 25; 
         }
         else if(rows <= 30 && cols <= 50){
             scale = 20; 
         }
         else if(rows <= 40 && cols <= 70){
-            scale = 18; 
+            scale = 16; 
         }
         else if(rows <= 50 && cols <= 100){
             scale = 12; 
