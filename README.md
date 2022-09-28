@@ -1,5 +1,5 @@
 Intro to AI: Assignment 1 Part 1
-Contributors: Jennifer Ceterko, Amanda  , Kenisha  
+Contributors: Jennifer Ceterko, Amanda Kang, Kenisha Sequeira  
 
 Files: 
 
