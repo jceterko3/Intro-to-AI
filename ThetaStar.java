@@ -106,7 +106,7 @@ public class ThetaStar {
             }
         }
 
-        System.out.println("path not found");
+        System.out.println("theta* path not found");
         return null;
     }
 

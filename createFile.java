@@ -1,5 +1,3 @@
-// adding something so i can push DELETE THIS
-
 import java.io.*;
 import java.util.Random;
 

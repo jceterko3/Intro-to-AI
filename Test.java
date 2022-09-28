@@ -1,5 +1,3 @@
-// adding something so i can push DELETE THIS
-
 import java.awt.*;
 import javax.swing.*;
 
@@ -85,38 +83,13 @@ public class Test {
 
         int[][] b = bkd.stream().map(x -> x.stream().mapToInt(Integer::intValue).toArray()).toArray(int[][]::new); 
 
-        //test to print array of blocked cells (delete later)
-        for(int i=0; i<b.length; i++){
-            //System.out.print(b[i][0]+",");
-            //System.out.println(""+b[i][1]);
-        }
-
         // A* Methods
         Astar Apath = new Astar();
         ArrayList<Node> apath = Apath.A(sx,sy,gx,gy,col,row,b,count);
-        //Apath.print_hval_A();
-
-        // TODO: Delete later - code to print grid cells
-//        System.out.println("Printing grid: \n");
-//        for (int[] ints : gridCells) {
-//            for (int j = 0; j < gridCells[0].length; j++) {
-//                System.out.print(ints[j] + "* ");
-//            }
-//            System.out.print('\n');
-//        }
 
         // Theta* Method
         ThetaStar thetaPath = new ThetaStar();
         ArrayList<Node> tpath = thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells,b);
-//        System.out.println("A* PATH:\n");
-//        for(Node n : apath){
-//            System.out.print("("+n.row+", "+n.col+")");
-//        }
-//        System.out.println("THETA* PATH:\n");
-//        for(Node n : thetaPath.path){
-//            System.out.print("("+n.row+", "+n.col+")");
-//        }
-
 
         // draws the grid with path 
         Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count,apath,tpath);
