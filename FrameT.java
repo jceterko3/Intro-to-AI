@@ -4,7 +4,7 @@ import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Frame extends JFrame { // a class to create the GUI
+public class FrameT extends JFrame { // a class to create the GUI
 
     private int startX; // x coord of start vertex
     private int startY; // y coord of start vertex
@@ -18,7 +18,7 @@ public class Frame extends JFrame { // a class to create the GUI
     public ArrayList<Node> Tpath; // shortest path found from start to goal theta*
     public minHeap fringe;
 
-    public Frame(int sx, int sy, int gx, int gy, int col, int row, int[][] bkd, int count, ArrayList<Node> Apth, ArrayList<Node> Tpth) { // creates a pop up window
+    public FrameT(int sx, int sy, int gx, int gy, int col, int row, int[][] bkd, int count, ArrayList<Node> Tpth) { // creates a pop up window
 
         startX = sx; // initializing private variables, need to offset by *50 to fit scale of grid
         startY = sy;
@@ -28,7 +28,6 @@ public class Frame extends JFrame { // a class to create the GUI
         rows = row;
         blocked = bkd;
         bkdCount = count;
-        Apath = Apth;
         Tpath = Tpth;
 
         getContentPane().setBackground(Color.WHITE);
@@ -116,19 +115,6 @@ public class Frame extends JFrame { // a class to create the GUI
         g.drawString("Start Vertex", (startX-1) * scale - (dia / 2)+50, (startY-1) * scale - (dia / 2)+50);
         g.drawString("Goal Vertex", (goalX-1) * scale - (dia / 2)+50, (goalY-1) * scale - (dia / 2)+50);
 
-        // add the final path A*
-        if(Apath!=null){
-            g.setColor(Color.red);
-            int[] xcoords = new int[Apath.size()];
-            int[] ycoords = new int[Apath.size()];
-            for(int i = 0; i < Apath.size(); i++){
-                xcoords[i] = (Apath.get(i).col) * scale + 50;
-                ycoords[i] = (Apath.get(i).row) * scale + 50;
-            }
-            g.drawPolyline(xcoords,ycoords,Apath.size());
-
-        }
-
         // add the final path theta*
         if(Tpath!=null){
             g.setColor(Color.blue);
@@ -145,9 +131,6 @@ public class Frame extends JFrame { // a class to create the GUI
         // key
         g.drawLine(((cols+1)*scale+75), 75, ((cols+1)*scale+100), 75);
         g.drawString("Theta* Path", ((cols+1)*scale+100), 90);
-        g.setColor(Color.red);
-        g.drawLine(((cols+1)*scale+75), 100, ((cols+1)*scale+100), 100);
-        g.drawString("A* Path", ((cols+1)*scale+100), 115);
 
        
     }

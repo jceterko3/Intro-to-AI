@@ -4,11 +4,14 @@ import javax.swing.*;
 import java.util.Scanner;
 import java.io.*;
 import java.util.ArrayList;
+import java.lang.Runtime;
 
 
 public class Test {
 
     public static void main(String args[]){
+
+        final long startTime = System.nanoTime();
 
         String fileName = args[0];
 
@@ -91,37 +94,77 @@ public class Test {
         ThetaStar thetaPath = new ThetaStar();
         ArrayList<Node> tpath = thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells,b);
 
-        // draws the grid with path 
-        Frame grid = new Frame(sx,sy,gx,gy,col,row,b,count,apath,tpath);
+        // draws the grid with path
+        Scanner pathQues = new Scanner(System.in);
+        System.out.println("\nEnter in A star or Theta star in their respective format to view path."); 
+        while(pathQues.hasNextLine()){
+            String pathAns = pathQues.nextLine();
+            if(pathAns.equals("A star")){
 
-        // ask about viewing a vertex and displaying info in terminal
-        Scanner question = new Scanner(System.in);
-        System.out.println("\nEnter a vertex in the form x y to view more info or close GUI to exit");
-        // while user is giving input
-        while(question.hasNext()){
-            // saving entered vertex
-            int vertexX = question.nextInt();
-            int vertexY = question.nextInt();
-
-            // search for values associated to vertex 
-            double hA = Apath.hval(vertexX, vertexY);
-            double gA = Apath.gval(vertexX, vertexY);
-            double fA = Apath.fval(vertexX, vertexY);
-            System.out.println("A* H VALUE = " + hA);
-            System.out.println("A* G VALUE = " + gA);
-            System.out.println("A* F VALUE = " + fA);
-            System.out.println();
-
-            double hT = thetaPath.hval(vertexX, vertexY);
-            double gT = thetaPath.gval(vertexX, vertexY);
-            double fT = thetaPath.fval(vertexX, vertexY);
-            System.out.println("theta* H VALUE = " + hT);
-            System.out.println("theta* G VALUE = " + gT);
-            System.out.println("theta* F VALUE = " + fT);
-            System.out.println();
-
-            System.out.println("Enter a vertex in the form x y to view more info or close GUI to exit");
+                FrameA gridA = new FrameA(sx,sy,gx,gy,col,row,b,count,apath);
+    
+                // ask about viewing a vertex and displaying info in terminal
+                Scanner question = new Scanner(System.in);
+                System.out.println("\nEnter a vertex in the form x y to view more info or close GUI to exit");
+                // while user is giving input
+                while(question.hasNext()){
+                    // saving entered vertex
+                    int vertexX = question.nextInt();
+                    int vertexY = question.nextInt();
+    
+                    // search for values associated to vertex 
+                    double hA = Apath.hval(vertexX, vertexY);
+                    double gA = Apath.gval(vertexX, vertexY);
+                    double fA = Apath.fval(vertexX, vertexY);
+                    System.out.println("A* H VALUE = " + hA);
+                    System.out.println("A* G VALUE = " + gA);
+                    System.out.println("A* F VALUE = " + fA);
+                    System.out.println();
+    
+                    System.out.println("Enter a vertex in the form x y to view more info or close GUI to exit");
+                }
+            }
+            else if(pathAns.equals("Theta star")){
+    
+                FrameT gridT = new FrameT(sx,sy,gx,gy,col,row,b,count,tpath);
+    
+                // ask about viewing a vertex and displaying info in terminal
+                Scanner question = new Scanner(System.in);
+                System.out.println("\nEnter a vertex in the form x y to view more info or close GUI to exit");
+                // while user is giving input
+                while(question.hasNext()){
+                    // saving entered vertex
+                    int vertexX = question.nextInt();
+                    int vertexY = question.nextInt();
+    
+                    // search for values associated to vertex 
+                    double hT = thetaPath.hval(vertexX, vertexY);
+                    double gT = thetaPath.gval(vertexX, vertexY);
+                    double fT = thetaPath.fval(vertexX, vertexY);
+                    System.out.println("theta* H VALUE = " + hT);
+                    System.out.println("theta* G VALUE = " + gT);
+                    System.out.println("theta* F VALUE = " + fT);
+                    System.out.println();
+    
+                    System.out.println("Enter a vertex in the form x y to view more info or close GUI to exit");
+                }
+                
+            }
+            else{
+                System.out.println("Please enter A star or Theta star in the correct format.");
+            }
+    
         }
+  
+        // time & space 
+        final long duration = System.nanoTime() - startTime;
+        System.out.println(duration + " nanoseconds");
+        Runtime run = Runtime.getRuntime();
+        //System.out.println(run.maxMemory() + " bytes");
+
+        System.out.println("start: " + sx + " " + sy);
+        System.out.println("goal: " + gx + " " + gy);
+
     }
     
 }

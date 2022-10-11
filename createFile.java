@@ -62,8 +62,6 @@ public class createFile {
       }
       content.close(); 
 
-      System.out.println("blocked: " + numBlocked + " " + "actually: " + count);
-
     } 
     catch (IOException e) {
         System.out.println("ERROR");
