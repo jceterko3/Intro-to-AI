@@ -1,9 +1,8 @@
 import java.awt.*;
 import javax.swing.*;
-
 import java.util.Scanner;
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.lang.Runtime;
 
 
@@ -29,6 +28,7 @@ public class Test {
         int count = 0;
 
         ArrayList<ArrayList<Integer>> bkd = new ArrayList<ArrayList<Integer>>();
+        Map<Integer,Set<Integer>> blocked = new HashMap<>();
         
         try{
             Scanner scan = new Scanner(new File(fileName));
@@ -73,10 +73,21 @@ public class Test {
                         bkd.get(count).add(x);   
                         bkd.get(count).add(y); 
                         count++;
+                        if(blocked.containsKey(x)) blocked.get(x).add(y);
+                        else{
+                            Set<Integer> set = new HashSet<>();
+                            set.add(y);
+                            blocked.put(x,set);
+                        } 
                         gridCells[y][x] = 1;
                     }
                 }
             }
+            //TODO: Delete
+            System.out.println("BLOCKED MAP: \n");
+            blocked.entrySet().forEach(entry -> {
+                System.out.println(entry.getKey() + " " + entry.getValue());
+            });
 
             scan.close();
 
@@ -124,7 +135,7 @@ public class Test {
 
                 // Theta* Method
                 ThetaStar thetaPath = new ThetaStar();
-                ArrayList<Node> tpath = thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells,b);
+                ArrayList<Node> tpath = thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells,blocked);
 
                 FrameT gridT = new FrameT(sx,sy,gx,gy,col,row,b,count,tpath);
     

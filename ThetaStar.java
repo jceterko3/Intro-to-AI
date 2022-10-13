@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 public class ThetaStar {
 
@@ -13,7 +12,7 @@ public class ThetaStar {
     private int[][] gridCells; // grid cells
     public ArrayList<Node> path; // shortest path found from start to goal
     public minHeap fringe;
-    private int[][] blocked; // includes all blocked cells
+    private Map<Integer,Set<Integer>> blocked; // includes all blocked cells
 
     /**
      * Implements the theta star algorithm to find the shortest any angle path from the start to goal vertex.
@@ -26,7 +25,7 @@ public class ThetaStar {
      * @param gridCells matrix where 0 represents free cells and 1 represents blocked cells of the grid
      * @return the shortest path from start vertex to goal vertex
      */
-    public ArrayList<Node> ThetaStarAlgorithm(int startX, int startY, int goalX, int goalY, int cols, int rows, int[][] gridCells, int[][] blocked){
+    public ArrayList<Node> ThetaStarAlgorithm(int startX, int startY, int goalX, int goalY, int cols, int rows, int[][] gridCells, Map<Integer,Set<Integer>> blocked){
 
         // initializing variables
         this.startX = startX;
@@ -56,12 +55,12 @@ public class ThetaStar {
         //     }
         //     System.out.println();
         // }
-        // for(int[] i : gridCells){
-        //     for(int j : i){
-        //         System.out.print(j + " ");
-        //     }
-        //     System.out.println();
-        // }
+        for(int[] i : gridCells){
+            for(int j : i){
+                System.out.print(j + " ");
+            }
+            System.out.println();
+        }
         
 
         // setting up A* start, goal, fringe, parents, closed list
@@ -184,16 +183,17 @@ public class ThetaStar {
                             top = true;
 
                         }
-                        for (int i = 0; i < blocked.length; i++) {
-                            if (blocked[i][0] == vc && blocked[i][1] == vr) {
-                                bottom = true;
-                            }
-                            if (blocked[i][0] == vc && blocked[i][1] == (vr-1)) {
-                                top = true;
-                            }
-                        }
-                        //System.out.println((vc-1)+","+(vr));
-                        //System.out.println("for "+row+", "+col+" to "+r+", "+c+": bottom is "+bottom+", top is "+top);
+                        // for (int i = 0; i < blocked.length; i++) {
+                        //     if (blocked[i][0] == vc && blocked[i][1] == vr) {
+                        //         bottom = true;
+                        //     }
+                        //     if (blocked[i][0] == vc && blocked[i][1] == (vr-1)) {
+                        //         top = true;
+                        //     }
+                        // }
+                        if(blocked.containsKey(vc) && blocked.get(vc).contains(vr)) bottom = true;
+                        if(blocked.containsKey(vc) && blocked.get(vc).contains(vr - 1)) top = true;
+
                         if(top && bottom){
                             isBlocked = true;
                         }
@@ -209,14 +209,16 @@ public class ThetaStar {
                             left = true;
 
                         }
-                        for (int i = 0; i < blocked.length; i++) {
-                            if (blocked[i][0] == vc && blocked[i][1] == vr) {
-                                right = true;
-                            }
-                            if (blocked[i][0] == (vc-1) && blocked[i][1] == vr) {
-                                left = true;
-                            }
-                        }
+                        // for (int i = 0; i < blocked.length; i++) {
+                        //     if (blocked[i][0] == vc && blocked[i][1] == vr) {
+                        //         right = true;
+                        //     }
+                        //     if (blocked[i][0] == (vc-1) && blocked[i][1] == vr) {
+                        //         left = true;
+                        //     }
+                        // }
+                        if(blocked.containsKey(vc) && blocked.get(vc).contains(vr)) right = true;
+                        if(blocked.containsKey(vc - 1) && blocked.get(vc - 1).contains(vr)) left = true;
                        // System.out.println((vc-1)+","+(vr));
                         if(left && right){
                             isBlocked = true;
@@ -230,25 +232,22 @@ public class ThetaStar {
                             newc = vc+1;
                             //  System.out.println("down movement: from "+c+" to "+col);
                         }
-                        for (int i = 0; i < blocked.length; i++) {
-                            if (blocked[i][0] == vc && blocked[i][1] == vr) {
-                                //System.out.println("up is blocked");
-                                for(int j=0; j<blocked.length; j++){
-                                    if (blocked[j][0] == (newc) && blocked[j][1] == (vr)) {
-                                        isBlocked = true;
-                                    }
-                                }
+                        // for (int i = 0; i < blocked.length; i++) {
+                        //     if (blocked[i][0] == vc && blocked[i][1] == vr) {
+                        //         //System.out.println("up is blocked");
+                        //         for(int j=0; j<blocked.length; j++){
+                        //             if (blocked[j][0] == (newc) && blocked[j][1] == (vr)) {
+                        //                 isBlocked = true;
+                        //             }
+                        //         }
 
-                            }
-                        }
+                        //     }
+                        // }
+                        if(blocked.containsKey(vc) && blocked.get(vc).contains(vr))
+                            if(blocked.containsKey(newc) && blocked.get(newc).contains(vr)) isBlocked = true;
 
-                    } else {
-                        for (int i = 0; i < blocked.length; i++) {
-                            if (blocked[i][0] == vc && blocked[i][1] == vr) {
-                                isBlocked = true;
-                            }
-                        }
-                    }
+                    } 
+                    else if(blocked.containsKey(vc) && blocked.get(vc).contains(vr)) isBlocked = true;
 
                     if (!isBlocked) {
                         if (row >= 0 && row <= rows) {
@@ -328,7 +327,7 @@ public class ThetaStar {
         int dy = y1 - y0;
         int dx = x1 - x0;
         int sx, sy;
-        //System.out.println("x0: " + x0 + " y0: " + y0 + " x1: " + x1 + " y1: " + y1 + " dx: " + dx + " dy: " + dy + " ");
+        System.out.println("x0: " + x0 + " y0: " + y0 + " x1: " + x1 + " y1: " + y1);
         // initialize variables
         if(dy < 0){
             dy = -dy;
@@ -359,18 +358,18 @@ public class ThetaStar {
                     int x = x0 + ((sx - 1)/2);
                     int y = y0 + ((sy - 1)/2);
                    System.out.println("going7 grid(" + x + "," + y + ") = " + gridCells[x][y]);
-                    if(gridCells[x][y] > 0) return false;
+                    if(isBlocked(x, y)) return false;
                     y0 += sy;
                     f -= dx;
 //                    System.out.println("going8 \tf: "+f+"\ty0: " + y0);
                 }
                 int x = x0 + ((sx - 1)/2);
                 int y = y0 + ((sy - 1)/2);
-                if(f != 0 && gridCells[x][y] > 0){
-                   System.out.println("going9 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+                System.out.println("going9 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+                if(f != 0 && isBlocked(x, y)){
                     return false;
                 }
-                if(dy == 0 && gridCells[x][y0] > 0 && gridCells[x][y0 - 1] > 0){
+                if(dy == 0 && isBlocked(x, y0) && isBlocked(x, y0 - 1)){
                    System.out.println("going10 grid(" + x + "," + y0 + ") = " + gridCells[x][y0]);
                    System.out.println("grid(" + x + "," + (y0-1) + ") = " + gridCells[x][y0-1]);
                     return false;
@@ -385,21 +384,21 @@ public class ThetaStar {
                 f = f + dx;
                 int x = x0 + ((sx - 1) / 2);
                 int y = y0 + ((sy - 1) / 2);
+                System.out.println("going14 grid(" + x + "," + y + ") = " + gridCells[x][y]);
 //                System.out.println("going13 \tf: " + f);
                 if (f >= dy) {
-                   System.out.println("going14 grid(" + x + "," + y + ") = " + gridCells[x][y]);
-                    if (gridCells[x][y] > 0) return false;
+                    if (isBlocked(x, y)) return false;
                     x0 += sx;
                     f -= dy;
 //                    System.out.println("going15 \tf: " + f + "\tx0: " + x0);
                 }
                 x = x0 + ((sx - 1) / 2);
                 y = y0 + ((sy - 1) / 2);
-                if (f != 0 && gridCells[x][y] > 0) {
-                   System.out.println("going16 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+                System.out.println("going16 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+                if (f != 0 && isBlocked(x, y)) {
                     return false;
                 }
-                if (dx == 0 && gridCells[x0][y] > 0 && gridCells[x0 - 1][y] > 0) {
+                if (dx == 0 && isBlocked(x0, y) && isBlocked(x0 - 1, y)) {
                    System.out.println("going17 grid(" + x0 + "," + y + ") = " + gridCells[x0][y]);
                    System.out.println("grid(" + (x0 - 1) + "," + y + ") = " + gridCells[x0 - 1][y]);
                     return false;
@@ -410,6 +409,18 @@ public class ThetaStar {
         }
 //        System.out.println("going19TRUE");
         return true;
+    }
+
+    private boolean isBlocked(int x, int y){
+        if(x < 1 || y < 1 || x > rows || y > cols){
+            System.out.println("isBlocked() (" + x + "," + y + ")  rows: " + rows + "cols: " + cols + " - out of bounds");
+            return true;
+        } 
+        if(blocked.containsKey(y) && blocked.get(y).contains(x)){
+            System.out.println("isBlocked() - blocked in map");
+            return true;
+        } 
+        return false;
     }
 
 }
