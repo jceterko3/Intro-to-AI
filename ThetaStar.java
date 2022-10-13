@@ -47,7 +47,23 @@ public class ThetaStar {
                 graph[i][j] = new Node(i, j, cval(new Node(i, j, 0), goalNode));
             }
         }
-        //System.out.println("H VAL OF GOAL VERTEX: " + graph[goalY - 1][goalX - 1].h);
+
+        System.out.println("Columns: " + cols + "   Rows: " + rows);
+        // TODO: Delete below print
+        // for(int[] i : blocked){
+        //     for(int j : i){
+        //         System.out.print(j + " ");
+        //     }
+        //     System.out.println();
+        // }
+        // for(int[] i : gridCells){
+        //     for(int j : i){
+        //         System.out.print(j + " ");
+        //     }
+        //     System.out.println();
+        // }
+        
+
         // setting up A* start, goal, fringe, parents, closed list
         Node s;
         Node start = graph[startY - 1][startX - 1];
@@ -65,13 +81,9 @@ public class ThetaStar {
 
             if (s.row == goal.row && s.col == goal.col) {
                 path.add(s);
-
-                int help = 0;
                 while (!(s.parent.col == s.col && s.parent.row == s.row)) {
                     path.add(s.parent);
                     s = s.parent;
-                    //   System.out.println("ADDED NODE:"+(s.col+1)+", "+(s.row+1));
-                    help++;
                 }
 
                 Collections.reverse(path);
@@ -346,7 +358,7 @@ public class ThetaStar {
                 if(f >= dx){
                     int x = x0 + ((sx - 1)/2);
                     int y = y0 + ((sy - 1)/2);
-//                    System.out.println("going7 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+                   System.out.println("going7 grid(" + x + "," + y + ") = " + gridCells[x][y]);
                     if(gridCells[x][y] > 0) return false;
                     y0 += sy;
                     f -= dx;
@@ -355,12 +367,12 @@ public class ThetaStar {
                 int x = x0 + ((sx - 1)/2);
                 int y = y0 + ((sy - 1)/2);
                 if(f != 0 && gridCells[x][y] > 0){
-//                    System.out.println("going9 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+                   System.out.println("going9 grid(" + x + "," + y + ") = " + gridCells[x][y]);
                     return false;
                 }
-                if(dy == 0 && gridCells[x0 + ((sx - 1)/2)][y0] > 0 && gridCells[x0 + ((sx - 1)/2)][y0 - 1] > 0){
-//                    System.out.println("going10 grid(" + x + "," + y0 + ") = " + gridCells[x][y0]);
-//                    System.out.println("grid(" + x + "," + (y0-1) + ") = " + gridCells[x][y0-1]);
+                if(dy == 0 && gridCells[x][y0] > 0 && gridCells[x][y0 - 1] > 0){
+                   System.out.println("going10 grid(" + x + "," + y0 + ") = " + gridCells[x][y0]);
+                   System.out.println("grid(" + x + "," + (y0-1) + ") = " + gridCells[x][y0-1]);
                     return false;
                 }
                 x0 += sx;
@@ -371,25 +383,25 @@ public class ThetaStar {
 //            System.out.println("going12");
             while (y0 != y1) {
                 f = f + dx;
+                int x = x0 + ((sx - 1) / 2);
+                int y = y0 + ((sy - 1) / 2);
 //                System.out.println("going13 \tf: " + f);
                 if (f >= dy) {
-                    int x = x0 + ((sx - 1) / 2);
-                    int y = y0 + ((sy - 1) / 2);
-//                    System.out.println("going14 grid(" + x + "," + y + ") = " + gridCells[x][y]);
-                    if (gridCells[x0 + ((sx - 1) / 2)][y0 + ((sy - 1) / 2)] > 0) return false;
+                   System.out.println("going14 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+                    if (gridCells[x][y] > 0) return false;
                     x0 += sx;
                     f -= dy;
 //                    System.out.println("going15 \tf: " + f + "\tx0: " + x0);
                 }
-                int x = x0 + ((sx - 1) / 2);
-                int y = y0 + ((sy - 1) / 2);
-                if (f != 0 && gridCells[x0 + ((sx - 1) / 2)][y0 + ((sy - 1) / 2)] > 0) {
-//                    System.out.println("going16 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+                x = x0 + ((sx - 1) / 2);
+                y = y0 + ((sy - 1) / 2);
+                if (f != 0 && gridCells[x][y] > 0) {
+                   System.out.println("going16 grid(" + x + "," + y + ") = " + gridCells[x][y]);
                     return false;
                 }
-                if (dx == 0 && gridCells[x0][y0 + ((sy - 1) / 2)] > 0 && gridCells[x0 - 1][y0 + ((sy - 1) / 2)] > 0) {
-//                    System.out.println("going17 grid(" + x0 + "," + y + ") = " + gridCells[x0][y]);
-//                    System.out.println("grid(" + (x0 - 1) + "," + y + ") = " + gridCells[x0 - 1][y]);
+                if (dx == 0 && gridCells[x0][y] > 0 && gridCells[x0 - 1][y] > 0) {
+                   System.out.println("going17 grid(" + x0 + "," + y + ") = " + gridCells[x0][y]);
+                   System.out.println("grid(" + (x0 - 1) + "," + y + ") = " + gridCells[x0 - 1][y]);
                     return false;
                 }
                 y0 += sy;
