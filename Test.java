@@ -88,7 +88,7 @@ public class Test {
 
         // A* Methods
         Astar Apath = new Astar();
-        ArrayList<Node> apath = Apath.A(sx,sy,gx,gy,col,row,b,count);
+        Node[] apath = Apath.A(sx,sy,gx,gy,col,row,b,count);
 
         // Theta* Method
         ThetaStar thetaPath = new ThetaStar();

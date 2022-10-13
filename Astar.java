@@ -14,11 +14,11 @@ public class Astar {
     private int cols;
     private int rows;
     private int[][] blocked; // includes all blocked cells
-    public ArrayList<Node> path; // shortest path found from start to goal
+    public Node[] path; // shortest path found from start to goal
     public minHeap fringe;
 
     // A* algorithm
-    public ArrayList<Node> A(int sx, int sy, int gx, int gy, int col, int row, int[][] bkd, int count) {
+    public Node[] A(int sx, int sy, int gx, int gy, int col, int row, int[][] bkd, int count) {
 
         // initializing private variables
         startX = sx;
@@ -28,7 +28,8 @@ public class Astar {
         cols = col;
         rows = row;
         blocked = bkd;
-        path = new ArrayList<Node>();
+        path = new Node[(rows+1)*(cols)+(rows)*(cols+1)];
+        int ip = 0;
 
         // calculate heuristic values and construct
         graph = new Node[rows + 1][cols + 1];
@@ -49,40 +50,46 @@ public class Astar {
         fringe = new minHeap((rows + 1) * (cols + 1));
         start.f = start.h;
         fringe.insert(start);
-        ArrayList<Node> closed = new ArrayList<Node>();
+        //ArrayList<Node> closed = new ArrayList<Node>();
+        Node[] closedNew = new Node[(rows+1)*(cols+1)];
+        int ic = 0; //closed index
 
         while (!fringe.isEmpty()) {
-            // fringe.print();
             s = fringe.pop();
-
             if (s.row == goal.row && s.col == goal.col) {
-                path.add(s);
-
-                int help = 0;
+                path[ip]=s;
+                ip++;
                 while (!(s.parent.col == s.col && s.parent.row == s.row)) {
-                    path.add(s.parent);
+                    path[ip]=s.parent;
+                    ip++;
                     s = s.parent;
-                    // System.out.println("ADDED NODE:"+(s.col+1)+", "+(s.row+1));
-                    help++;
                 }
 
-                Collections.reverse(path);
-
+                path = reverseArr(path, ip-1);
                 return path;
-
             }
 
-            closed.add(s);
+            //closed.add(s);
+            closedNew[ic] = s;
+            ic++;
             // System.out.println("added to closed: "+(s.col+1)+", "+(s.row+1));
-            ArrayList<Node> succs = succ(s);
+            Node[] succs = succ(s);
+           // ArrayList<Node> succs = succ(s);
 
-            for (int i = 0; i < succs.size(); i++) {
-                Node si = succs.get(i);
+            for (int i = 0; i < succs.length; i++) {
+                Node si = succs[i];
                 // System.out.println("testing succ:"+(si.col+1)+", "+(si.row+1));
                 if (si == null) {
                     break;
                 }
-                if (closed.indexOf(si) == -1) {
+                boolean isClosed = false;
+                for(Node n:closedNew){
+                    if(n==si){
+                        isClosed = true;
+                        break;
+                    }
+                }
+                if (isClosed == false) {
                     boolean isFringe = false;
                     for (int j = 0; j < fringe.A.length; j++) {
                         if (fringe.A[j] == si) {
@@ -101,6 +108,18 @@ public class Astar {
         System.out.println("A* path not found");
         return null;
 
+    }
+    private Node[] reverseArr(Node[] path, int end){
+        Node[] pathNew = new Node[end+1];
+        int start = 0;
+        while(start<end){
+            pathNew[start] = path[end];
+            pathNew[end] = path[start];
+            start++;
+            end--;
+        }
+        return pathNew;
+       
     }
 
     private void updateVertex(Node s, Node si) {
@@ -127,11 +146,11 @@ public class Astar {
 
     }
 
-    private ArrayList<Node> succ(Node s) {
+    private Node[] succ(Node s) {
 
         int r = s.row;
         int c = s.col;
-        ArrayList<Node> succs = new ArrayList<Node>();
+        Node[] succs = new Node[8];
         int count = 0;
 
         for (int row = r - 1; row < (r + 2); row++) {
@@ -203,8 +222,8 @@ public class Astar {
                     if (!isBlocked) {
                         if (row >= 0 && row <= rows) {
                             if (col >= 0 && col <= cols) {
-
-                                succs.add(graph[row][col]);
+                                succs[count] = graph[row][col];
+                               // succs.add(graph[row][col]);
                                 //System.out.println("SUCCESS");
                                 count++;
 

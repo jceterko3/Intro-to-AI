@@ -14,11 +14,10 @@ public class FrameA extends JFrame { // a class to create the GUI
     private int rows;
     private int[][] blocked; // includes all blocked cells
     private int bkdCount;
-    public ArrayList<Node> Apath; // shortest path found from start to goal A*
-    public ArrayList<Node> Tpath; // shortest path found from start to goal theta*
+    public Node[] Apath; // shortest path found from start to goal A*
     public minHeap fringe;
 
-    public FrameA(int sx, int sy, int gx, int gy, int col, int row, int[][] bkd, int count, ArrayList<Node> Apth) { // creates a pop up window
+    public FrameA(int sx, int sy, int gx, int gy, int col, int row, int[][] bkd, int count, Node[] Apth) { // creates a pop up window
 
         startX = sx; // initializing private variables, need to offset by *50 to fit scale of grid
         startY = sy;
@@ -118,13 +117,14 @@ public class FrameA extends JFrame { // a class to create the GUI
         // add the final path A*
         if(Apath!=null){
             g.setColor(Color.red);
-            int[] xcoords = new int[Apath.size()];
-            int[] ycoords = new int[Apath.size()];
-            for(int i = 0; i < Apath.size(); i++){
-                xcoords[i] = (Apath.get(i).col) * scale + 50;
-                ycoords[i] = (Apath.get(i).row) * scale + 50;
+            int l = Apath.length;
+            int[] xcoords = new int[l];
+            int[] ycoords = new int[l];
+            for(int i = 0; i < l; i++){
+                xcoords[i] = (Apath[i].col) * scale + 50;
+                ycoords[i] = (Apath[i].row) * scale + 50;
             }
-            g.drawPolyline(xcoords,ycoords,Apath.size());
+            g.drawPolyline(xcoords,ycoords,l);
 
         }
 
