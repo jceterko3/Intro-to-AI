@@ -86,20 +86,16 @@ public class Test {
 
         int[][] b = bkd.stream().map(x -> x.stream().mapToInt(Integer::intValue).toArray()).toArray(int[][]::new); 
 
-        // A* Methods
-        Astar Apath = new Astar();
-        ArrayList<Node> apath = Apath.A(sx,sy,gx,gy,col,row,b,count);
-
-        // Theta* Method
-        ThetaStar thetaPath = new ThetaStar();
-        ArrayList<Node> tpath = thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells,b);
-
         // draws the grid with path
         Scanner pathQues = new Scanner(System.in);
         System.out.println("\nEnter in A star or Theta star in their respective format to view path."); 
         while(pathQues.hasNextLine()){
             String pathAns = pathQues.nextLine();
             if(pathAns.equals("A star")){
+
+                // A* Methods
+                Astar Apath = new Astar();
+                ArrayList<Node> apath = Apath.A(sx,sy,gx,gy,col,row,b,count);
 
                 FrameA gridA = new FrameA(sx,sy,gx,gy,col,row,b,count,apath);
     
@@ -125,6 +121,10 @@ public class Test {
                 }
             }
             else if(pathAns.equals("Theta star")){
+
+                // Theta* Method
+                ThetaStar thetaPath = new ThetaStar();
+                ArrayList<Node> tpath = thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells,b);
     
                 FrameT gridT = new FrameT(sx,sy,gx,gy,col,row,b,count,tpath);
     
@@ -155,15 +155,18 @@ public class Test {
             }
     
         }
-  
-        // time & space 
-        final long duration = System.nanoTime() - startTime;
-        System.out.println(duration + " nanoseconds");
-        Runtime run = Runtime.getRuntime();
-        //System.out.println(run.maxMemory() + " bytes");
 
-        System.out.println("start: " + sx + " " + sy);
-        System.out.println("goal: " + gx + " " + gy);
+                // time & space 
+                //final long duration = System.nanoTime() - startTime;
+                //System.out.println(duration + " nanoseconds");
+                Runtime run = Runtime.getRuntime();
+                long memory = run.totalMemory() - run.freeMemory();
+                System.out.println(memory + " bytes");
+        
+                System.out.println("start: " + sx + " " + sy);
+                System.out.println("goal: " + gx + " " + gy);
+  
+
 
     }
     
