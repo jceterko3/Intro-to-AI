@@ -84,10 +84,10 @@ public class Test {
                 }
             }
             //TODO: Delete
-            System.out.println("BLOCKED MAP: \n");
-            blocked.entrySet().forEach(entry -> {
-                System.out.println(entry.getKey() + " " + entry.getValue());
-            });
+            // System.out.println("BLOCKED MAP: \n");
+            // blocked.entrySet().forEach(entry -> {
+            //     System.out.println(entry.getKey() + " " + entry.getValue());
+            // });
 
             scan.close();
 
@@ -106,7 +106,7 @@ public class Test {
 
                 // A* Methods
                 Astar Apath = new Astar();
-                Node[] apath = Apath.A(sx,sy,gx,gy,col,row,b,count);
+                Node[] apath = Apath.A(sx,sy,gx,gy,col,row,blocked,count);
 
                 FrameA gridA = new FrameA(sx,sy,gx,gy,col,row,b,count,apath);
     

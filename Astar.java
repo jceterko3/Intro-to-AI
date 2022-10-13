@@ -1,8 +1,7 @@
 // adding something so i can push DELETE THIS
 
 import java.lang.Math;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 public class Astar {
 
@@ -13,12 +12,12 @@ public class Astar {
     private int goalY; // y coord of goal vertex
     private int cols;
     private int rows;
-    private int[][] blocked; // includes all blocked cells
+    private Map<Integer,Set<Integer>> blocked; // includes all blocked cells
     public Node[] path; // shortest path found from start to goal
     public minHeap fringe;
 
     // A* algorithm
-    public Node[] A(int sx, int sy, int gx, int gy, int col, int row, int[][] bkd, int count) {
+    public Node[] A(int sx, int sy, int gx, int gy, int col, int row, Map<Integer,Set<Integer>> bkd, int count) {
 
         // initializing private variables
         startX = sx;
@@ -175,14 +174,8 @@ public class Astar {
                             top = true;
 
                         }
-                        for (int i = 0; i < blocked.length; i++) {
-                            if (blocked[i][0] == vc && blocked[i][1] == vr) {
-                                bottom = true;
-                            }
-                            if (blocked[i][0] == vc && blocked[i][1] == (vr - 1)) {
-                                top = true;
-                            }
-                        }
+                        if(blocked.containsKey(vc) && blocked.get(vc).contains(vr)) bottom = true;
+                        if(blocked.containsKey(vc) && blocked.get(vc).contains(vr - 1)) top = true;
                         
                         if (top && bottom) {
                             isBlocked = true;
@@ -199,25 +192,14 @@ public class Astar {
                             left = true;
 
                         }
-                        for (int i = 0; i < blocked.length; i++) {
-                            if (blocked[i][0] == vc && blocked[i][1] == vr) {
-                                right = true;
-                            }
-                            if (blocked[i][0] == (vc - 1) && blocked[i][1] == vr) {
-                                left = true;
-                            }
-                        }
+                        if(blocked.containsKey(vc) && blocked.get(vc).contains(vr)) right = true;
+                        if(blocked.containsKey(vc - 1) && blocked.get(vc - 1).contains(vr)) left = true;
+
                         if (left && right) {
                             isBlocked = true;
                         }
 
-                    } else {
-                        for (int i = 0; i < blocked.length; i++) {
-                            if (blocked[i][0] == vc && blocked[i][1] == vr) {
-                                isBlocked = true;
-                            }
-                        }
-                    }
+                    } else if(blocked.containsKey(vc) && blocked.get(vc).contains(vr)) isBlocked = true;
 
                     if (!isBlocked) {
                         if (row >= 0 && row <= rows) {
