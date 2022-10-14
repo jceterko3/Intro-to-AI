@@ -50,16 +50,6 @@ public class Test {
                 col = scan.nextInt();
                 row = scan.nextInt();
 
-                gridCells = new int[row + 2][col + 2]; // adding 2 to create a frame of blocked cells around the grid
-                for(int i = 0; i < row + 2; i++){
-                    gridCells[i][0] = 1;
-                    gridCells[i][col + 1] = 1;
-                }
-                for(int i = 0; i < col + 2; i++){
-                    gridCells[0][i] = 1;
-                    gridCells[row + 1][i] = 1;
-                }
-
                 // obtaining the cells, not sure if this has to be optimized in some way 
                 // he mentioned in the assignment we can only do one initialization for vertices? 
                 for(int i = 0; i < col*row; i++){
@@ -79,7 +69,6 @@ public class Test {
                             set.add(y);
                             blocked.put(x,set);
                         } 
-                        gridCells[y][x] = 1;
                     }
                 }
             }
@@ -100,7 +89,7 @@ public class Test {
         // A* Methods
                 // Theta* Method
                 ThetaStar thetaPath = new ThetaStar();
-                ArrayList<Node> tpath = thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells,blocked);
+                ArrayList<Node> tpath = thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,blocked);
 
                 FrameT gridT = new FrameT(sx,sy,gx,gy,col,row,b,count,tpath);
 
@@ -142,7 +131,7 @@ public class Test {
 
                 // Theta* Method
                 ThetaStar thetaPath = new ThetaStar();
-                ArrayList<Node> tpath = thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells,blocked);
+                ArrayList<Node> tpath = thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,blocked);
 
                 FrameT gridT = new FrameT(sx,sy,gx,gy,col,row,b,count,tpath);
     

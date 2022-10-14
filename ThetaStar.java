@@ -9,7 +9,6 @@ public class ThetaStar {
     private int goalY; // y coordinate of goal vertex
     private int cols;
     private int rows;
-    private int[][] gridCells; // grid cells
     public ArrayList<Node> path; // shortest path found from start to goal
     public minHeap fringe;
     private Map<Integer,Set<Integer>> blocked; // includes all blocked cells
@@ -22,10 +21,9 @@ public class ThetaStar {
      * @param goalY y coordinate of goal vertex
      * @param cols number of columns in grid
      * @param rows number of rows in grid
-     * @param gridCells matrix where 0 represents free cells and 1 represents blocked cells of the grid
      * @return the shortest path from start vertex to goal vertex
      */
-    public ArrayList<Node> ThetaStarAlgorithm(int startX, int startY, int goalX, int goalY, int cols, int rows, int[][] gridCells, Map<Integer,Set<Integer>> blocked){
+    public ArrayList<Node> ThetaStarAlgorithm(int startX, int startY, int goalX, int goalY, int cols, int rows, Map<Integer,Set<Integer>> blocked){
 
         // initializing variables
         this.startX = startX;
@@ -34,7 +32,6 @@ public class ThetaStar {
         this.goalY = goalY;
         this.cols = cols;
         this.rows = rows;
-        this.gridCells = gridCells;
         this.path = new ArrayList<Node>();
         this.blocked = blocked;
 
