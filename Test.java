@@ -97,8 +97,15 @@ public class Test {
 
         int[][] b = bkd.stream().map(x -> x.stream().mapToInt(Integer::intValue).toArray()).toArray(int[][]::new); 
 
+        // A* Methods
+                // Theta* Method
+                ThetaStar thetaPath = new ThetaStar();
+                ArrayList<Node> tpath = thetaPath.ThetaStarAlgorithm(sx,sy,gx,gy,col,row,gridCells,blocked);
+
+                FrameT gridT = new FrameT(sx,sy,gx,gy,col,row,b,count,tpath);
+
         // draws the grid with path
-        Scanner pathQues = new Scanner(System.in);
+        /*Scanner pathQues = new Scanner(System.in);
         System.out.println("\nEnter in A star or Theta star in their respective format to view path."); 
         while(pathQues.hasNextLine()){
             String pathAns = pathQues.nextLine();
@@ -165,16 +172,16 @@ public class Test {
                 System.out.println("Please enter A star or Theta star in the correct format.");
             }
     
-        }
+        }*/
   
         // time & space 
-        final long duration = System.nanoTime() - startTime;
-        System.out.println(duration + " nanoseconds");
-        Runtime run = Runtime.getRuntime();
-        //System.out.println(run.maxMemory() + " bytes");
+
+        /*Runtime run = Runtime.getRuntime();
+        long memory = run.totalMemory()-run.freeMemory();
+        System.out.println(memory + " bytes");
 
         System.out.println("start: " + sx + " " + sy);
-        System.out.println("goal: " + gx + " " + gy);
+        System.out.println("goal: " + gx + " " + gy);*/
 
     }
     
