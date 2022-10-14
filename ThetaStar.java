@@ -47,7 +47,7 @@ public class ThetaStar {
             }
         }
 
-        System.out.println("Columns: " + cols + "   Rows: " + rows);
+        // System.out.println("Columns: " + cols + "   Rows: " + rows);
         // TODO: Delete below print
         // for(int[] i : blocked){
         //     for(int j : i){
@@ -55,12 +55,12 @@ public class ThetaStar {
         //     }
         //     System.out.println();
         // }
-        for(int[] i : gridCells){
-            for(int j : i){
-                System.out.print(j + " ");
-            }
-            System.out.println();
-        }
+        // for(int[] i : gridCells){
+        //     for(int j : i){
+        //         System.out.print(j + " ");
+        //     }
+        //     System.out.println();
+        // }
         
 
         // setting up A* start, goal, fringe, parents, closed list
@@ -327,7 +327,7 @@ public class ThetaStar {
         int dy = y1 - y0;
         int dx = x1 - x0;
         int sx, sy;
-        System.out.println("x0: " + x0 + " y0: " + y0 + " x1: " + x1 + " y1: " + y1);
+        // System.out.println("x0: " + x0 + " y0: " + y0 + " x1: " + x1 + " y1: " + y1);
         // initialize variables
         if(dy < 0){
             dy = -dy;
@@ -357,7 +357,7 @@ public class ThetaStar {
                 if(f >= dx){
                     int x = x0 + ((sx - 1)/2);
                     int y = y0 + ((sy - 1)/2);
-                   System.out.println("going7 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+                //    System.out.println("going7 grid(" + x + "," + y + ") = " + gridCells[x][y]);
                     if(isBlocked(x, y)) return false;
                     y0 += sy;
                     f -= dx;
@@ -365,13 +365,13 @@ public class ThetaStar {
                 }
                 int x = x0 + ((sx - 1)/2);
                 int y = y0 + ((sy - 1)/2);
-                System.out.println("going9 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+                // System.out.println("going9 grid(" + x + "," + y + ") = " + gridCells[x][y]);
                 if(f != 0 && isBlocked(x, y)){
                     return false;
                 }
                 if(dy == 0 && isBlocked(x, y0) && isBlocked(x, y0 - 1)){
-                   System.out.println("going10 grid(" + x + "," + y0 + ") = " + gridCells[x][y0]);
-                   System.out.println("grid(" + x + "," + (y0-1) + ") = " + gridCells[x][y0-1]);
+                //    System.out.println("going10 grid(" + x + "," + y0 + ") = " + gridCells[x][y0]);
+                //    System.out.println("grid(" + x + "," + (y0-1) + ") = " + gridCells[x][y0-1]);
                     return false;
                 }
                 x0 += sx;
@@ -384,7 +384,7 @@ public class ThetaStar {
                 f = f + dx;
                 int x = x0 + ((sx - 1) / 2);
                 int y = y0 + ((sy - 1) / 2);
-                System.out.println("going14 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+                // System.out.println("going14 grid(" + x + "," + y + ") = " + gridCells[x][y]);
 //                System.out.println("going13 \tf: " + f);
                 if (f >= dy) {
                     if (isBlocked(x, y)) return false;
@@ -394,13 +394,13 @@ public class ThetaStar {
                 }
                 x = x0 + ((sx - 1) / 2);
                 y = y0 + ((sy - 1) / 2);
-                System.out.println("going16 grid(" + x + "," + y + ") = " + gridCells[x][y]);
+                // System.out.println("going16 grid(" + x + "," + y + ") = " + gridCells[x][y]);
                 if (f != 0 && isBlocked(x, y)) {
                     return false;
                 }
                 if (dx == 0 && isBlocked(x0, y) && isBlocked(x0 - 1, y)) {
-                   System.out.println("going17 grid(" + x0 + "," + y + ") = " + gridCells[x0][y]);
-                   System.out.println("grid(" + (x0 - 1) + "," + y + ") = " + gridCells[x0 - 1][y]);
+                //    System.out.println("going17 grid(" + x0 + "," + y + ") = " + gridCells[x0][y]);
+                //    System.out.println("grid(" + (x0 - 1) + "," + y + ") = " + gridCells[x0 - 1][y]);
                     return false;
                 }
                 y0 += sy;
@@ -413,11 +413,11 @@ public class ThetaStar {
 
     private boolean isBlocked(int x, int y){
         if(x < 1 || y < 1 || x > rows || y > cols){
-            System.out.println("isBlocked() (" + x + "," + y + ")  rows: " + rows + "cols: " + cols + " - out of bounds");
+            // System.out.println("isBlocked() (" + x + "," + y + ")  rows: " + rows + "cols: " + cols + " - out of bounds");
             return true;
         } 
         if(blocked.containsKey(y) && blocked.get(y).contains(x)){
-            System.out.println("isBlocked() - blocked in map");
+            // System.out.println("isBlocked() - blocked in map");
             return true;
         } 
         return false;
