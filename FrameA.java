@@ -116,11 +116,13 @@ public class FrameA extends JFrame { // a class to create the GUI
 
         // add the final path A*
         if(Apath!=null){
+            System.out.println(""+Apath.length);
             g.setColor(Color.red);
             int l = Apath.length;
             int[] xcoords = new int[l];
             int[] ycoords = new int[l];
             for(int i = 0; i < l; i++){
+                System.out.println(Apath[i].col+","+Apath[i].row);
                 xcoords[i] = (Apath[i].col) * scale + 50;
                 ycoords[i] = (Apath[i].row) * scale + 50;
             }

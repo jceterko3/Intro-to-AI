@@ -27,7 +27,8 @@ public class Astar {
         cols = col;
         rows = row;
         blocked = bkd;
-        path = new Node[(rows+1)*(cols)+(rows)*(cols+1)];
+        path = new Node[(rows+1)*(cols+1)];
+
         int ip = 0;
 
         // calculate heuristic values and construct
@@ -110,12 +111,8 @@ public class Astar {
     }
     private Node[] reverseArr(Node[] path, int end){
         Node[] pathNew = new Node[end+1];
-        int start = 0;
-        while(start<end){
-            pathNew[start] = path[end];
-            pathNew[end] = path[start];
-            start++;
-            end--;
+        for(int i=0; i<end+1; i++){
+            pathNew[i] = path[end-i];
         }
         return pathNew;
        
