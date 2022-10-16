@@ -49,7 +49,7 @@ GUI Description:
 
 The GUI will appear in a popup window and it is best to expand the GUI to full screen if possible to ensure the whole grid is seen. Before the GUI opens, the terminal will prompt the question "Enter in A star or Theta star in their respective format to view path." where the user must enter "A star" or "Theta star" to view the respective path in this exact format. The GUI will have all components (start vertex, goal vertex, path and number labels) appear at once. 
 
-The terminal will display the line "Enter a vertex in the form x y to view more info or close GUI to exit" where the user can enter a vertex in the form x y to view the f, g and h values associated to that vertex when using A* or theta*. The question will keep displaying until the user closes the GUI window. Additionally, if a A* or theta* path cannot be found, there will be a line in the terminal that says "A* path not found" or "theta* path not found". 
+The terminal will display the line "Enter a vertex in the form x y to view more info or close GUI to exit" where the user can enter a vertex in the form x y to view the f, g and h values associated to that vertex when using A* or theta*. The program will not respond to another input besides "x y" (without the quotes). The question will keep displaying until the user closes the GUI window. Additionally, if a A* or theta* path cannot be found, there will be a line in the terminal that says "A* path not found" or "theta* path not found". 
 
 If the user originally entered A star to view the A* path and now wanted to view the theta* path, the user must close the GUI to exit and rerun the program and enter Theta star when prompted with the path selection question.
     
