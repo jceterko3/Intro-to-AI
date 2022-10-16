@@ -86,7 +86,7 @@ public class Test {
         System.out.println("\nEnter in A star or Theta star in their respective format to view path."); 
         while(pathQues.hasNextLine()){
             String pathAns = pathQues.nextLine();
-            if(pathAns.equals("A star")){
+            if(pathAns.equalsIgnoreCase("A star")){
 
                 // A* Methods
                 Astar Apath = new Astar();
@@ -115,7 +115,7 @@ public class Test {
                     System.out.println("Enter a vertex in the form x y to view more info or close GUI to exit");
                 }
             }
-            else if(pathAns.equals("Theta star")){
+            else if(pathAns.equalsIgnoreCase("Theta star")){
 
                 // Theta* Method
                 ThetaStar thetaPath = new ThetaStar();
